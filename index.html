@@ -1,0 +1,774 @@
+<!doctype html>
+<html lang="en" data-theme="ink">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="My Mate Nasty — Premium social photo platform" />
+<meta name="theme-color" content="#0b0c0e" />
+<title>My Mate Nasty</title>
+<style>:root {
+  --bg: #0b0c0e;
+  --bg-elevated: #0f1114;
+  --surface: #131519;
+  --surface-2: #181b20;
+  --surface-3: #20242a;
+  --text: #f3f0e9;
+  --text-soft: #d7d3ca;
+  --muted: #969ba4;
+  --muted-2: #6f747d;
+  --line: rgba(244, 240, 232, .10);
+  --line-strong: rgba(244, 240, 232, .18);
+  --accent: #7f9eff;
+  --accent-strong: #6386ff;
+  --mint: #c9b99d;
+  --coral: #d9b99b;
+  --danger: #ef7777;
+  --success: #8fd0aa;
+  --overlay: rgba(4, 5, 7, .78);
+  --shadow: 0 24px 80px rgba(0, 0, 0, .38);
+  --radius-xl: 28px;
+  --radius-lg: 20px;
+  --radius-md: 15px;
+  --radius-sm: 11px;
+  --content: 1180px;
+  --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-editorial: Georgia, "Times New Roman", serif;
+}
+
+html[data-theme="slate"] {
+  --bg: #101318;
+  --bg-elevated: #141820;
+  --surface: #191e27;
+  --surface-2: #202631;
+  --surface-3: #29313d;
+  --text: #f1f4f8;
+  --text-soft: #d7dce4;
+  --muted: #9ba4b2;
+  --accent: #89a9ff;
+  --mint: #a8d9d0;
+  --coral: #eea6a2;
+}
+
+html[data-theme="warm"] {
+  --bg: #100e0d;
+  --bg-elevated: #151210;
+  --surface: #1b1714;
+  --surface-2: #241f1b;
+  --surface-3: #2d2722;
+  --text: #f6efe4;
+  --text-soft: #ddd2c4;
+  --muted: #a49789;
+  --accent: #9daaff;
+  --mint: #bfd5bd;
+  --coral: #efa294;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  color: var(--text);
+  background: var(--bg);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+body.no-scroll { overflow: hidden; }
+button, input, textarea, select { font: inherit; }
+button { cursor: pointer; }
+a { color: inherit; text-decoration: none; }
+img { max-width: 100%; display: block; }
+::selection { background: rgba(127,158,255,.35); }
+
+.sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+.container { width: min(var(--content), calc(100% - 40px)); margin-inline: auto; }
+.page-shell { min-height: 100vh; }
+
+/* Brand */
+.brand { display: inline-flex; align-items: center; gap: 12px; min-width: 0; }
+.brand-mark {
+  width: 48px; height: 38px; display: inline-flex; align-items: center; justify-content: center;
+  position: relative; color: var(--text); font-family: var(--font-editorial); line-height: 1;
+  isolation: isolate; flex: 0 0 auto;
+}
+.brand-mark i { position: relative; display: block; font-style: normal; font-weight: 500; font-size: 27px; letter-spacing: -.12em; }
+.brand-mark i:nth-child(1) { transform: translateX(8px); z-index: 1; }
+.brand-mark i:nth-child(2) { transform: translateX(0); z-index: 2; color: #e9ddc8; }
+.brand-mark i:nth-child(3) { transform: translateX(-8px); z-index: 3; }
+.brand-mark::after { content:""; position:absolute; left:4px; right:4px; bottom:1px; height:1px; background:linear-gradient(90deg,transparent,var(--accent),transparent); opacity:.65; }
+.brand-name { display:grid; line-height:1.05; min-width:0; }
+.brand-name strong { font-size: 15px; letter-spacing: -.03em; white-space:nowrap; }
+.brand-name span { color:var(--muted); font-size:9px; margin-top:4px; letter-spacing:.09em; text-transform:uppercase; white-space:nowrap; }
+.brand-name strong { font-family:var(--font-editorial); font-weight:500; font-size:17px; letter-spacing:-.02em; }
+.brand-name span { color:#b5aa99; }
+
+.brand.compact .brand-name { display:none; }
+.brand.compact .brand-mark { width:42px; height:32px; }
+.brand.compact .brand-mark i { font-size:22px; }
+
+/* Buttons and fields */
+.btn { border:1px solid var(--line); border-radius:999px; min-height:42px; padding:0 18px; display:inline-flex; align-items:center; justify-content:center; gap:9px; background:transparent; color:var(--text); font-weight:650; font-size:13px; transition:transform .18s ease, border-color .18s ease, background .18s ease, color .18s ease; }
+.btn:hover { transform:translateY(-1px); border-color:var(--line-strong); }
+.btn:active { transform:translateY(0); }
+.btn-primary { border-color:transparent; background:var(--text); color:var(--bg); }
+.btn-primary:hover { background:var(--text-soft); }
+.btn-accent { border-color:transparent; background:var(--accent); color:#0a1022; }
+.btn-subtle { background:rgba(255,255,255,.035); }
+.btn-danger { border-color:rgba(239,119,119,.28); color:#ffaaaa; }
+.btn-icon { width:42px; padding:0; border-radius:50%; }
+.btn-sm { min-height:34px; padding:0 13px; font-size:11px; }
+.btn-lg { min-height:50px; padding:0 22px; font-size:14px; }
+.icon { width:19px; height:19px; flex:0 0 auto; }
+.icon-sm { width:16px; height:16px; }
+
+.field { display:grid; gap:8px; }
+.field label { color:var(--text-soft); font-size:12px; font-weight:650; }
+.input, .textarea, .select {
+  width:100%; border:1px solid var(--line); border-radius:13px; background:var(--surface);
+  color:var(--text); padding:13px 14px; outline:none; transition:border-color .18s ease, box-shadow .18s ease;
+}
+.input:focus, .textarea:focus, .select:focus { border-color:rgba(127,158,255,.7); box-shadow:0 0 0 3px rgba(127,158,255,.11); }
+.textarea { min-height:112px; resize:vertical; }
+.field-help { color:var(--muted); font-size:10px; line-height:1.5; }
+.form-grid { display:grid; gap:16px; }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+
+/* Public site */
+.public-nav { height:78px; display:flex; align-items:center; justify-content:space-between; position:relative; z-index:5; }
+.public-nav-links { display:flex; align-items:center; gap:8px; }
+.public-nav-links a { color:var(--muted); font-size:12px; padding:10px 12px; }
+.public-nav-links a:hover { color:var(--text); }
+.hero { min-height:calc(100vh - 78px); display:grid; grid-template-columns:minmax(0,.9fr) minmax(520px,1.1fr); gap:62px; align-items:center; padding:52px 0 88px; }
+.eyebrow { display:inline-flex; align-items:center; gap:9px; color:var(--mint); font-size:11px; font-weight:750; letter-spacing:.12em; text-transform:uppercase; }
+.eyebrow::before { content:""; width:24px; height:1px; background:currentColor; }
+.hero h1 { margin:22px 0 24px; font-size:clamp(58px,7.2vw,104px); line-height:.86; letter-spacing:-.075em; font-weight:760; max-width:720px; }
+.hero h1 em { display:block; font-family:var(--font-editorial); font-weight:400; letter-spacing:-.055em; color:#dfc6a6; }
+.hero-copy > p { color:var(--muted); max-width:580px; font-size:16px; line-height:1.75; }
+.hero-actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:30px; }
+.hero-notes { display:flex; flex-wrap:wrap; gap:10px 18px; margin-top:32px; color:var(--muted); font-size:11px; }
+.hero-notes span::before { content:"•"; color:var(--accent); margin-right:8px; }
+
+.editorial-preview { position:relative; min-width:0; }
+.preview-frame { background:var(--surface); border:1px solid var(--line); border-radius:var(--radius-xl); box-shadow:var(--shadow); overflow:hidden; }
+.preview-top { height:62px; display:flex; align-items:center; justify-content:space-between; padding:0 18px; border-bottom:1px solid var(--line); }
+.preview-top .search-pill { width:45%; height:34px; border:1px solid var(--line); border-radius:999px; display:flex; align-items:center; color:var(--muted-2); padding:0 13px; font-size:9px; }
+.preview-layout { display:grid; grid-template-columns:145px 1fr 160px; min-height:530px; }
+.preview-sidebar { border-right:1px solid var(--line); padding:16px 11px; }
+.preview-sidebar .mini-brand { display:flex; align-items:center; gap:7px; font-weight:750; font-size:9px; margin:3px 5px 18px; }
+.preview-nav-item { display:flex; align-items:center; gap:8px; color:var(--muted); padding:9px 10px; border-radius:9px; font-size:8px; }
+.preview-nav-item.active { color:var(--text); background:var(--surface-3); }
+.preview-feed { padding:18px; min-width:0; }
+.preview-feed-title { display:flex; justify-content:space-between; align-items:end; margin-bottom:13px; }
+.preview-feed-title h3 { margin:3px 0 0; font-size:21px; letter-spacing:-.045em; }
+.preview-feed-title span { color:var(--muted); font-size:7px; }
+.demo-post { border:1px solid var(--line); border-radius:15px; overflow:hidden; background:var(--bg-elevated); }
+.demo-post-head { display:flex; align-items:center; gap:8px; padding:10px; }
+.demo-post-head img { width:27px; height:27px; border-radius:50%; }
+.demo-post-head div { display:grid; gap:2px; }
+.demo-post-head strong { font-size:8px; }
+.demo-post-head small { font-size:6px; color:var(--muted); }
+.demo-post-head b { margin-left:auto; color:var(--muted); font-size:8px; }
+.demo-post > img { width:100%; aspect-ratio:16/9; object-fit:cover; }
+.demo-post-actions { display:flex; gap:12px; padding:9px 11px; color:var(--text-soft); font-size:8px; }
+.demo-post-actions span:last-child { margin-left:auto; }
+.demo-post-caption { font-size:7px; color:var(--muted); padding:0 11px 11px; line-height:1.5; }
+.preview-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; }
+.preview-tile { background:var(--bg-elevated); border:1px solid var(--line); border-radius:13px; padding:7px; }
+.preview-tile img { aspect-ratio:4/3; object-fit:cover; border-radius:9px; }
+.preview-tile strong { display:block; font-size:7px; margin:7px 2px 2px; }
+.preview-tile span { color:var(--muted); font-size:6px; margin-left:2px; }
+.preview-rail { border-left:1px solid var(--line); padding:15px 11px; }
+.mini-panel { border:1px solid var(--line); border-radius:13px; padding:11px; margin-bottom:10px; background:rgba(255,255,255,.02); }
+.mini-panel label { display:block; color:var(--muted); font-size:7px; margin-bottom:9px; }
+.mini-avatars { display:flex; }
+.mini-avatars img { width:25px; height:25px; border-radius:50%; border:2px solid var(--surface); margin-left:-6px; }
+.mini-avatars img:first-child { margin-left:0; }
+.mini-invite { background:var(--mint); color:#132019; }
+.mini-invite strong { font-size:11px; line-height:1.2; display:block; }
+.mini-invite p { font-size:7px; line-height:1.5; opacity:.74; }
+.mini-invite button { border:0; border-radius:999px; background:#16211b; color:#f5f3ed; padding:7px 11px; font-size:7px; }
+.phone-preview { position:absolute; width:196px; right:-50px; bottom:-64px; border:7px solid #262a31; background:var(--bg); border-radius:33px; overflow:hidden; box-shadow:0 25px 70px rgba(0,0,0,.52); }
+.phone-status { display:flex; justify-content:space-between; padding:11px 13px 5px; font-size:7px; }
+.phone-brand { display:flex; align-items:center; gap:7px; padding:8px 11px; font-size:9px; font-weight:750; }
+.story-row { display:grid; grid-template-columns:repeat(4,1fr); gap:5px; padding:3px 9px 10px; }
+.story-item { text-align:center; color:var(--muted); font-size:5px; }
+.story-item img { width:30px; height:30px; object-fit:cover; border-radius:50%; padding:2px; border:1.5px solid var(--coral); margin:0 auto 3px; }
+.phone-post > img { width:100%; aspect-ratio:4/5; object-fit:cover; }
+.phone-bottom { height:45px; border-top:1px solid var(--line); display:flex; align-items:center; justify-content:space-around; color:var(--muted); font-size:13px; }
+.phone-bottom .plus { width:31px; height:31px; display:grid; place-items:center; border-radius:50%; background:var(--text); color:var(--bg); }
+
+.public-section { padding:110px 0; }
+.section-header { display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:end; margin-bottom:42px; }
+.section-header h2 { margin:14px 0 0; font-size:clamp(42px,5vw,70px); line-height:.98; letter-spacing:-.06em; }
+.section-header h2 em { font-family:var(--font-editorial); color:var(--accent); font-weight:400; }
+.section-header p { color:var(--muted); line-height:1.75; max-width:500px; }
+.feature-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+.feature-card { min-height:250px; border:1px solid var(--line); border-radius:var(--radius-lg); padding:23px; background:linear-gradient(180deg,rgba(255,255,255,.025),transparent); }
+.feature-index { color:var(--muted-2); font-family:var(--font-editorial); font-style:italic; }
+.feature-card h3 { margin:86px 0 10px; font-size:18px; letter-spacing:-.03em; }
+.feature-card p { color:var(--muted); line-height:1.65; font-size:12px; }
+.public-cta { margin-bottom:76px; padding:50px; border-radius:var(--radius-xl); background:var(--text); color:var(--bg); display:flex; justify-content:space-between; align-items:end; gap:30px; }
+.public-cta h2 { margin:0; font-size:clamp(42px,5vw,72px); line-height:.9; letter-spacing:-.065em; }
+.public-cta h2 em { font-family:var(--font-editorial); font-weight:400; color:#516fd0; }
+.public-cta .btn { border-color:rgba(11,12,14,.2); color:var(--bg); }
+.public-footer { border-top:1px solid var(--line); padding:28px 0 36px; display:flex; justify-content:space-between; align-items:center; color:var(--muted); font-size:10px; }
+
+/* Auth */
+.auth-page { min-height:100vh; display:grid; grid-template-columns:minmax(0,.9fr) minmax(520px,1.1fr); }
+.auth-aside { padding:38px; display:flex; flex-direction:column; justify-content:space-between; border-right:1px solid var(--line); background:var(--surface); }
+.auth-aside h1 { margin:50px 0 18px; max-width:560px; font-size:clamp(48px,6vw,86px); line-height:.88; letter-spacing:-.07em; }
+.auth-aside h1 em { font-family:var(--font-editorial); font-weight:400; color:var(--coral); }
+.auth-aside p { color:var(--muted); max-width:530px; line-height:1.7; }
+.auth-art { border-radius:var(--radius-xl); overflow:hidden; min-height:270px; background:url('assets/rooftop.svg') center/cover; position:relative; }
+.auth-art::after { content:""; position:absolute; inset:0; background:linear-gradient(180deg,transparent 20%,rgba(0,0,0,.8)); }
+.auth-quote { position:absolute; z-index:1; left:25px; right:25px; bottom:23px; font-family:var(--font-editorial); font-style:italic; font-size:23px; }
+.auth-main { display:grid; place-items:center; padding:40px; }
+.auth-card { width:min(450px,100%); }
+.auth-card h2 { font-size:37px; letter-spacing:-.05em; margin:0 0 8px; }
+.auth-card > p { color:var(--muted); line-height:1.6; margin:0 0 27px; }
+.auth-card .btn { width:100%; }
+.auth-switch { text-align:center; color:var(--muted); font-size:12px; margin-top:20px; }
+.auth-switch button { border:0; background:none; color:var(--text); font-weight:750; }
+.terms-note { color:var(--muted-2); font-size:9px; line-height:1.55; text-align:center; margin-top:15px; }
+
+/* App shell */
+.app-shell { min-height:100vh; display:grid; grid-template-columns:230px minmax(0,1fr); }
+.app-sidebar { position:sticky; top:0; height:100vh; border-right:1px solid var(--line); padding:25px 18px; display:flex; flex-direction:column; background:var(--bg); z-index:15; }
+.app-sidebar .brand { margin:0 7px 32px; }
+.app-nav { display:grid; gap:5px; }
+.nav-link { width:100%; border:0; background:none; color:var(--muted); border-radius:12px; min-height:44px; padding:0 12px; display:flex; align-items:center; gap:12px; text-align:left; font-size:12px; font-weight:620; }
+.nav-link:hover { background:rgba(255,255,255,.035); color:var(--text); }
+.nav-link.active { background:var(--surface-2); color:var(--text); }
+.nav-link .nav-count { margin-left:auto; min-width:22px; height:20px; display:grid; place-items:center; padding:0 6px; background:var(--coral); color:#23100d; border-radius:999px; font-size:9px; }
+.sidebar-create { margin:22px 0; width:100%; }
+.sidebar-user { margin-top:auto; border-top:1px solid var(--line); padding-top:16px; display:flex; align-items:center; gap:10px; }
+.avatar { width:38px; height:38px; border-radius:50%; object-fit:cover; background:var(--surface-3); }
+.sidebar-user div { display:grid; min-width:0; gap:3px; }
+.sidebar-user strong { font-size:11px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.sidebar-user span { color:var(--muted); font-size:9px; }
+.sidebar-user button { margin-left:auto; }
+.app-main { min-width:0; }
+.app-header { position:sticky; top:0; z-index:12; height:72px; display:flex; align-items:center; justify-content:space-between; gap:20px; padding:0 28px; border-bottom:1px solid var(--line); background:rgba(11,12,14,.88); backdrop-filter:blur(20px); }
+.app-header-title { display:grid; gap:2px; }
+.app-header-title strong { font-size:16px; letter-spacing:-.03em; }
+.app-header-title span { color:var(--muted); font-size:9px; }
+.header-actions { display:flex; align-items:center; gap:8px; }
+.search-box { width:min(340px,35vw); height:39px; border:1px solid var(--line); border-radius:999px; background:var(--surface); display:flex; align-items:center; gap:9px; padding:0 14px; color:var(--muted); font-size:11px; }
+.search-box input { border:0; outline:0; background:transparent; color:var(--text); width:100%; }
+.app-content { width:min(980px,calc(100% - 50px)); margin:0 auto; padding:30px 0 80px; }
+.feed-layout { display:grid; grid-template-columns:minmax(0,650px) minmax(230px,1fr); gap:24px; align-items:start; }
+.feed-column { min-width:0; display:grid; gap:18px; }
+.feed-intro { display:flex; justify-content:space-between; align-items:end; gap:20px; padding:5px 2px 7px; }
+.feed-intro h1 { margin:0; font-size:34px; letter-spacing:-.055em; }
+.feed-intro p { color:var(--muted); margin:7px 0 0; font-size:11px; }
+.feed-filter { border:1px solid var(--line); border-radius:999px; background:var(--surface); color:var(--muted); padding:9px 13px; font-size:10px; }
+.post-card { border:1px solid var(--line); border-radius:var(--radius-lg); background:var(--surface); overflow:hidden; }
+.post-header { display:flex; align-items:center; gap:11px; padding:15px 16px; }
+.post-author { display:grid; gap:3px; min-width:0; }
+.post-author strong { font-size:12px; }
+.post-author span { color:var(--muted); font-size:9px; }
+.post-menu { margin-left:auto; }
+.post-caption { padding:0 17px 14px; color:var(--text-soft); font-size:12px; line-height:1.6; }
+.post-location { color:var(--mint); font-size:9px; display:inline-flex; align-items:center; gap:5px; margin-top:7px; }
+.post-media { position:relative; background:var(--surface-2); }
+.post-media img { width:100%; max-height:720px; object-fit:cover; }
+.media-count { position:absolute; right:12px; top:12px; background:rgba(5,6,8,.72); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,.12); border-radius:999px; padding:6px 9px; color:white; font-size:9px; }
+.media-dots { position:absolute; left:50%; bottom:13px; transform:translateX(-50%); display:flex; gap:5px; }
+.media-dots i { width:5px; height:5px; border-radius:50%; background:rgba(255,255,255,.42); }
+.media-dots i.active { width:15px; border-radius:999px; background:white; }
+.post-toolbar { display:flex; align-items:center; gap:3px; padding:11px 12px 7px; }
+.action-btn { border:0; background:none; color:var(--muted); min-height:38px; padding:0 8px; border-radius:9px; display:flex; align-items:center; gap:7px; font-size:10px; }
+.action-btn:hover { background:var(--surface-2); color:var(--text); }
+.action-btn.liked { color:var(--coral); }
+.action-btn.save { margin-left:auto; }
+.post-summary { padding:0 17px 15px; }
+.post-summary > strong { font-size:10px; }
+.post-summary p { margin:8px 0 0; color:var(--muted); font-size:10px; line-height:1.5; }
+.post-summary button { border:0; background:none; color:var(--muted); padding:0; font-size:10px; margin-top:9px; }
+.feed-rail { position:sticky; top:96px; display:grid; gap:14px; }
+.rail-card { border:1px solid var(--line); border-radius:var(--radius-lg); background:var(--surface); padding:17px; }
+.rail-card h3 { margin:0 0 14px; font-size:12px; letter-spacing:-.02em; }
+.rail-card > p { color:var(--muted); font-size:10px; line-height:1.55; }
+.people-list { display:grid; gap:12px; }
+.person-row { display:flex; align-items:center; gap:9px; }
+.person-row img { width:34px; height:34px; border-radius:50%; }
+.person-row div { display:grid; gap:2px; min-width:0; }
+.person-row strong { font-size:10px; }
+.person-row span { color:var(--muted); font-size:8px; }
+.person-row .btn { margin-left:auto; }
+.invite-rail { background:var(--mint); color:#142018; border:0; }
+.invite-rail h3 { font-family:var(--font-editorial); font-style:italic; font-weight:400; font-size:24px; }
+.invite-rail p { color:rgba(20,32,24,.7); }
+.invite-rail .btn { border-color:rgba(20,32,24,.18); color:#142018; }
+
+/* Profile */
+.profile-hero { border-bottom:1px solid var(--line); padding:36px 0 30px; }
+.profile-head { display:grid; grid-template-columns:auto 1fr auto; gap:20px; align-items:center; }
+.profile-avatar { width:104px; height:104px; border-radius:50%; object-fit:cover; border:4px solid var(--surface); box-shadow:0 0 0 1px var(--line); }
+.profile-copy h1 { margin:0; font-size:33px; letter-spacing:-.055em; }
+.profile-copy .username { color:var(--muted); margin-top:4px; font-size:11px; }
+.profile-copy .bio { color:var(--text-soft); margin:14px 0 0; max-width:590px; line-height:1.6; font-size:12px; }
+.profile-stats { display:flex; gap:25px; margin-top:18px; }
+.profile-stats div { display:grid; gap:3px; }
+.profile-stats strong { font-size:17px; }
+.profile-stats span { color:var(--muted); font-size:8px; text-transform:uppercase; letter-spacing:.09em; }
+.profile-actions { align-self:start; display:flex; gap:8px; }
+.profile-grid-title { display:flex; justify-content:space-between; align-items:center; padding:26px 0 14px; }
+.profile-grid-title h2 { margin:0; font-size:15px; }
+.photo-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:5px; }
+.grid-tile { position:relative; border:0; padding:0; background:var(--surface); overflow:hidden; aspect-ratio:1/1; }
+.grid-tile img { width:100%; height:100%; object-fit:cover; transition:transform .3s ease, opacity .3s ease; }
+.grid-tile:hover img { transform:scale(1.025); opacity:.84; }
+.grid-overlay { position:absolute; inset:0; display:grid; place-items:center; background:rgba(0,0,0,.36); opacity:0; transition:opacity .2s ease; color:white; font-size:11px; }
+.grid-tile:hover .grid-overlay { opacity:1; }
+
+/* Notifications and settings */
+.simple-page { max-width:760px; }
+.simple-heading { display:flex; justify-content:space-between; align-items:end; margin-bottom:25px; }
+.simple-heading h1 { margin:0; font-size:36px; letter-spacing:-.055em; }
+.simple-heading p { margin:8px 0 0; color:var(--muted); font-size:11px; }
+.notification-list { display:grid; border:1px solid var(--line); border-radius:var(--radius-lg); overflow:hidden; }
+.notification { display:flex; align-items:center; gap:12px; padding:15px; background:var(--surface); border-bottom:1px solid var(--line); }
+.notification:last-child { border-bottom:0; }
+.notification.unread { background:linear-gradient(90deg,rgba(127,158,255,.08),var(--surface) 35%); }
+.notification-copy { flex:1; font-size:11px; line-height:1.5; }
+.notification-copy span { color:var(--muted); }
+.notification-time { color:var(--muted-2); font-size:8px; }
+.settings-layout { display:grid; grid-template-columns:180px 1fr; gap:24px; }
+.settings-menu { display:grid; gap:4px; align-content:start; }
+.settings-tab { border:0; background:none; color:var(--muted); text-align:left; padding:11px 12px; border-radius:10px; font-size:11px; }
+.settings-tab.active { color:var(--text); background:var(--surface-2); }
+.settings-panel { border:1px solid var(--line); border-radius:var(--radius-lg); background:var(--surface); padding:24px; }
+.settings-panel h2 { margin:0 0 6px; font-size:20px; }
+.settings-panel > p { color:var(--muted); font-size:10px; line-height:1.6; margin:0 0 23px; }
+.theme-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; }
+.theme-card { border:1px solid var(--line); border-radius:13px; background:transparent; padding:10px; color:var(--text); text-align:left; }
+.theme-card.active { border-color:var(--accent); box-shadow:0 0 0 2px rgba(127,158,255,.11); }
+.theme-swatch { height:76px; border-radius:9px; margin-bottom:10px; position:relative; overflow:hidden; }
+.theme-swatch::before { content:""; position:absolute; left:9px; right:9px; top:10px; height:9px; border-radius:999px; background:rgba(255,255,255,.16); }
+.theme-swatch::after { content:""; position:absolute; left:9px; width:55%; top:28px; bottom:10px; border-radius:7px; background:rgba(255,255,255,.09); }
+.theme-swatch.ink { background:#0b0c0e; }
+.theme-swatch.slate { background:#101318; }
+.theme-swatch.warm { background:#100e0d; }
+.theme-card strong { font-size:10px; }
+.theme-card span { display:block; color:var(--muted); font-size:8px; margin-top:3px; }
+.toggle-row { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:15px 0; border-bottom:1px solid var(--line); }
+.toggle-row:last-child { border-bottom:0; }
+.toggle-row div { display:grid; gap:4px; }
+.toggle-row strong { font-size:11px; }
+.toggle-row span { color:var(--muted); font-size:9px; line-height:1.4; }
+.switch { width:42px; height:24px; border:0; border-radius:999px; background:var(--surface-3); padding:3px; }
+.switch i { display:block; width:18px; height:18px; border-radius:50%; background:var(--muted); transition:transform .18s ease, background .18s ease; }
+.switch.on { background:rgba(127,158,255,.25); }
+.switch.on i { transform:translateX(18px); background:var(--accent); }
+
+/* Modal / drawer */
+.overlay { position:fixed; inset:0; z-index:100; background:var(--overlay); backdrop-filter:blur(8px); display:grid; place-items:center; padding:22px; animation:fade .18s ease; }
+.modal { width:min(680px,100%); max-height:min(850px,calc(100vh - 44px)); overflow:auto; border:1px solid var(--line-strong); border-radius:var(--radius-xl); background:var(--bg-elevated); box-shadow:var(--shadow); animation:rise .22s ease; }
+.modal-header { position:sticky; top:0; z-index:2; min-height:65px; padding:0 18px; border-bottom:1px solid var(--line); background:rgba(15,17,20,.94); backdrop-filter:blur(14px); display:flex; align-items:center; justify-content:space-between; }
+.modal-header h2 { margin:0; font-size:16px; letter-spacing:-.03em; }
+.modal-body { padding:20px; }
+.upload-drop { min-height:240px; border:1px dashed var(--line-strong); border-radius:var(--radius-lg); display:grid; place-items:center; text-align:center; background:var(--surface); padding:30px; }
+.upload-drop .upload-icon { width:54px; height:54px; border-radius:50%; display:grid; place-items:center; background:var(--surface-3); margin:0 auto 14px; }
+.upload-drop h3 { margin:0 0 7px; font-size:17px; }
+.upload-drop p { color:var(--muted); margin:0 0 17px; font-size:10px; }
+.upload-previews { display:grid; grid-template-columns:repeat(5,1fr); gap:7px; margin-top:12px; }
+.upload-preview { aspect-ratio:1/1; border-radius:10px; overflow:hidden; position:relative; background:var(--surface-2); }
+.upload-preview img { width:100%; height:100%; object-fit:cover; }
+.upload-preview button { position:absolute; top:5px; right:5px; width:21px; height:21px; border:0; border-radius:50%; background:rgba(0,0,0,.7); color:white; }
+.create-fields { display:grid; gap:14px; margin-top:18px; }
+.comments-toggle { display:flex; align-items:center; justify-content:space-between; border:1px solid var(--line); border-radius:13px; padding:13px 14px; }
+.comments-toggle div { display:grid; gap:3px; }
+.comments-toggle strong { font-size:11px; }
+.comments-toggle span { color:var(--muted); font-size:8px; }
+.modal-footer { display:flex; justify-content:flex-end; gap:8px; margin-top:20px; }
+.drawer-overlay { position:fixed; inset:0; z-index:100; background:var(--overlay); animation:fade .18s ease; }
+.drawer { position:absolute; right:0; top:0; bottom:0; width:min(440px,100%); background:var(--bg-elevated); border-left:1px solid var(--line); display:flex; flex-direction:column; animation:slide .22s ease; }
+.drawer-header { height:68px; padding:0 17px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--line); }
+.drawer-header h2 { font-size:16px; }
+.comments-list { flex:1; overflow:auto; padding:16px; display:grid; align-content:start; gap:17px; }
+.comment { display:grid; grid-template-columns:34px 1fr; gap:10px; }
+.comment img { width:34px; height:34px; border-radius:50%; }
+.comment-body { font-size:10px; line-height:1.55; }
+.comment-body strong { margin-right:5px; }
+.comment-meta { color:var(--muted-2); font-size:8px; margin-top:5px; display:flex; gap:10px; }
+.comment-compose { border-top:1px solid var(--line); padding:13px; display:flex; gap:8px; }
+.comment-compose input { flex:1; min-width:0; }
+.invite-link { border:1px solid var(--line); border-radius:13px; padding:11px 12px; display:flex; align-items:center; gap:10px; background:var(--surface); }
+.invite-link code { flex:1; color:var(--text-soft); font-size:10px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.invite-options { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:16px; }
+.invite-option { border:1px solid var(--line); border-radius:13px; background:var(--surface); color:var(--text); padding:15px; text-align:left; }
+.invite-option strong { font-size:11px; }
+.invite-option span { display:block; color:var(--muted); font-size:8px; margin-top:5px; }
+
+.toast { position:fixed; z-index:200; left:50%; bottom:24px; transform:translate(-50%,20px); opacity:0; pointer-events:none; background:var(--text); color:var(--bg); border-radius:999px; padding:12px 18px; font-weight:700; font-size:11px; box-shadow:var(--shadow); transition:.22s ease; }
+.toast.show { opacity:1; transform:translate(-50%,0); }
+.empty-state { text-align:center; border:1px dashed var(--line); border-radius:var(--radius-lg); padding:60px 25px; color:var(--muted); }
+.empty-state h3 { color:var(--text); margin:0 0 8px; }
+
+.mobile-tabbar { display:none; }
+
+@keyframes fade { from{opacity:0} to{opacity:1} }
+@keyframes rise { from{opacity:0;transform:translateY(14px) scale(.99)} to{opacity:1;transform:none} }
+@keyframes slide { from{transform:translateX(100%)} to{transform:none} }
+
+@media (max-width:1120px) {
+  .hero { grid-template-columns:1fr; padding-top:45px; }
+  .hero-copy { max-width:760px; }
+  .editorial-preview { width:calc(100% - 50px); }
+  .feature-grid { grid-template-columns:1fr 1fr; }
+  .feed-layout { grid-template-columns:minmax(0,1fr) 230px; }
+}
+@media (max-width:900px) {
+  .app-shell { grid-template-columns:76px minmax(0,1fr); }
+  .app-sidebar { padding-inline:13px; align-items:center; }
+  .app-sidebar .brand-name, .nav-link span:not(.nav-count), .sidebar-user div, .sidebar-user > button { display:none; }
+  .app-sidebar .brand { margin-inline:0; }
+  .nav-link { width:48px; justify-content:center; padding:0; }
+  .nav-link .nav-count { position:absolute; transform:translate(14px,-13px); min-width:17px; height:17px; }
+  .sidebar-create { width:48px; padding:0; }
+  .sidebar-create span { display:none; }
+  .sidebar-user { justify-content:center; }
+  .feed-layout { grid-template-columns:1fr; }
+  .feed-rail { display:none; }
+  .auth-page { grid-template-columns:1fr; }
+  .auth-aside { display:none; }
+}
+@media (max-width:680px) {
+  .container { width:min(100% - 26px,var(--content)); }
+  .public-nav-links a { display:none; }
+  .public-nav-links .btn-subtle { display:none; }
+  .hero { gap:40px; padding:35px 0 78px; }
+  .hero h1 { font-size:clamp(54px,17vw,78px); }
+  .editorial-preview { width:100%; }
+  .preview-layout { grid-template-columns:72px 1fr; }
+  .preview-rail { display:none; }
+  .preview-sidebar { padding-inline:7px; }
+  .preview-nav-item { font-size:0; justify-content:center; }
+  .phone-preview { display:none; }
+  .section-header { grid-template-columns:1fr; gap:12px; }
+  .feature-grid { grid-template-columns:1fr; }
+  .public-section { padding:80px 0; }
+  .public-cta { padding:34px 25px; align-items:flex-start; flex-direction:column; }
+  .public-footer { align-items:flex-start; flex-direction:column; gap:18px; }
+  .app-shell { display:block; }
+  .app-sidebar { display:none; }
+  .app-header { height:62px; padding:0 13px; }
+  .app-header-title span { display:none; }
+  .search-box { display:none; }
+  .app-content { width:100%; padding:15px 0 86px; }
+  .feed-intro { padding:6px 14px 8px; }
+  .feed-column { gap:10px; }
+  .post-card { border-left:0; border-right:0; border-radius:0; }
+  .post-media img { max-height:none; }
+  .mobile-tabbar { position:fixed; z-index:30; left:0; right:0; bottom:0; height:68px; padding:7px 12px max(7px,env(safe-area-inset-bottom)); display:flex; align-items:flex-start; justify-content:space-around; border-top:1px solid var(--line); background:rgba(11,12,14,.94); backdrop-filter:blur(20px); }
+  .mobile-tab { border:0; background:none; color:var(--muted); width:47px; height:47px; display:grid; place-items:center; border-radius:14px; }
+  .mobile-tab.active { color:var(--text); background:var(--surface-2); }
+  .mobile-tab.create { background:var(--text); color:var(--bg); border-radius:50%; }
+  .profile-hero { padding:23px 14px 22px; }
+  .profile-head { grid-template-columns:auto 1fr; gap:14px; }
+  .profile-avatar { width:78px; height:78px; }
+  .profile-copy h1 { font-size:25px; }
+  .profile-actions { grid-column:1/-1; }
+  .profile-stats { gap:18px; }
+  .profile-grid-title { padding-inline:14px; }
+  .photo-grid { gap:2px; }
+  .simple-page { padding-inline:14px; }
+  .settings-layout { grid-template-columns:1fr; }
+  .settings-menu { display:flex; overflow:auto; }
+  .settings-tab { white-space:nowrap; }
+  .theme-grid { grid-template-columns:1fr; }
+  .auth-main { padding:26px 18px; }
+  .auth-card h2 { font-size:32px; }
+  .form-row { grid-template-columns:1fr; }
+  .modal { border-radius:20px; }
+  .upload-previews { grid-template-columns:repeat(3,1fr); }
+}
+</style>
+</head>
+<body>
+<div id="app" aria-live="polite"><main style="min-height:100vh;display:grid;place-items:center;padding:24px;background:#0b0c0e;color:#f3f0e9;font-family:system-ui"><p>Loading My Mate Nasty preview…</p></main></div>
+<div id="overlay-root"></div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script>(() => {
+  "use strict";
+
+  const app = document.getElementById("app");
+  const overlayRoot = document.getElementById("overlay-root");
+  const toast = document.getElementById("toast");
+
+  const icons = {
+    home: `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-5v-7H9v7H4a1 1 0 0 1-1-1Z"/></svg>`,
+    search: `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path d="m20 20-4-4"/></svg>`,
+    plus: `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>`,
+    heart: `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z"/></svg>`,
+    comment: `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4Z"/></svg>`,
+    bell: `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9M10 21h4"/></svg>`,
+    user: `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>`,
+    settings: `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1-2.8 2.8-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V21h-4v-.1A1.7 1.7 0 0 0 9 19.4a1.7 1.7 0 0 0-1.9.3l-.1.1L4.2 17l.1-.1a1.7 1.7 0 0 0 .3-1.9A1.7 1.7 0 0 0 3 14H3v-4h.1A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.3-1.9L4.2 7 7 4.2l.1.1A1.7 1.7 0 0 0 9 4.6 1.7 1.7 0 0 0 10 3V3h4v.1A1.7 1.7 0 0 0 15 4.6a1.7 1.7 0 0 0 1.9-.3l.1-.1L19.8 7l-.1.1a1.7 1.7 0 0 0-.3 1.9 1.7 1.7 0 0 0 1.6 1h.1v4H21a1.7 1.7 0 0 0-1.6 1Z"/></svg>`,
+    bookmark: `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 3h12v18l-6-4-6 4Z"/></svg>`,
+    more: `<svg class="icon" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></svg>`,
+    close: `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m5 5 14 14M19 5 5 19"/></svg>`,
+    upload: `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 16V4m0 0L7 9m5-5 5 5M4 15v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4"/></svg>`,
+    pin: `<svg class="icon icon-sm" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20 10c0 5-8 11-8 11S4 15 4 10a8 8 0 1 1 16 0Z"/><circle cx="12" cy="10" r="2.5"/></svg>`,
+    mail: `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>`,
+    share: `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 10.5 6.8-4M8.6 13.5l6.8 4"/></svg>`,
+    edit: `<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 20h9M16.5 3.5a2.1 2.1 0 0 1 3 3L8 18l-4 1 1-4Z"/></svg>`
+  };
+
+  const state = {
+    loggedIn: false,
+    route: "landing",
+    theme: (() => { try { return localStorage.getItem("mmn-theme") || "ink"; } catch (_) { return "ink"; } })(),
+    selectedSettings: "appearance",
+    createComments: true,
+    uploaded: [],
+    posts: [
+      {
+        id: "p1", author: "Jess Smith", username: "jesssmith", avatar: "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22a%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23e782cc%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23503466%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22url(%23a)%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2239%22%20r%3D%2220%22%20fill%3D%22%23f3c9aa%22%2F%3E%3Cpath%20d%3D%22M18%20100q5-38%2032-38t32%2038%22%20fill%3D%22%23101725%22%2F%3E%3Cpath%20d%3D%22M29%2035q3-28%2023-26%2019%202%2020%2028-9-14-22-14-12%200-21%2012%22%20fill%3D%22%23111622%22%2F%3E%3C%2Fsvg%3E", time: "18 min", location: "Brighton", caption: "One of those evenings that starts with ‘just one’ and somehow becomes a core memory.", images: ["data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201000%20700%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22r%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23553f91%22%2F%3E%3Cstop%20offset%3D%22.48%22%20stop-color%3D%22%23dd618c%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ffb05f%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221000%22%20height%3D%22700%22%20fill%3D%22url(%23r)%22%2F%3E%3Ccircle%20cx%3D%22500%22%20cy%3D%22250%22%20r%3D%22100%22%20fill%3D%22%23ffd999%22%20opacity%3D%22.8%22%2F%3E%3Cpath%20d%3D%22M0%20450h70v-160h80v160h70V250h90v200h80V330h120v120h60V210h110v240h90V300h80v150h150v250H0Z%22%20fill%3D%22%23161525%22%20opacity%3D%22.92%22%2F%3E%3Cg%20fill%3D%22%23070812%22%3E%3Ccircle%20cx%3D%22330%22%20cy%3D%22395%22%20r%3D%2225%22%2F%3E%3Cpath%20d%3D%22M300%20430l-30%20170h120l-30-170z%22%2F%3E%3Ccircle%20cx%3D%22500%22%20cy%3D%22380%22%20r%3D%2226%22%2F%3E%3Cpath%20d%3D%22M468%20420l-20%20180h120l-38-180z%22%2F%3E%3Ccircle%20cx%3D%22680%22%20cy%3D%22398%22%20r%3D%2224%22%2F%3E%3Cpath%20d%3D%22M650%20430l-22%20170h115l-33-170z%22%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%22M0%20600h1000v100H0z%22%20fill%3D%22%23080910%22%2F%3E%3Ctext%20x%3D%2252%22%20y%3D%22655%22%20fill%3D%22%23fff%22%20opacity%3D%22.52%22%20font-family%3D%22Arial%22%20font-size%3D%2222%22%20letter-spacing%3D%225%22%3EONE%20DRINK%20%E2%80%A2%20APPARENTLY%3C%2Ftext%3E%3C%2Fsvg%3E", "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201000%20700%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22b%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%2316162f%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23060911%22%2F%3E%3C%2FlinearGradient%3E%3CradialGradient%20id%3D%22f%22%3E%3Cstop%20stop-color%3D%22%23fff2a5%22%2F%3E%3Cstop%20offset%3D%22.35%22%20stop-color%3D%22%23ff8b42%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23d83158%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221000%22%20height%3D%22700%22%20fill%3D%22url(%23b)%22%2F%3E%3Cg%20fill%3D%22%23dfe8ff%22%3E%3Ccircle%20cx%3D%2280%22%20cy%3D%2290%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22180%22%20cy%3D%22145%22%20r%3D%222%22%2F%3E%3Ccircle%20cx%3D%22330%22%20cy%3D%2275%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22490%22%20cy%3D%22120%22%20r%3D%222%22%2F%3E%3Ccircle%20cx%3D%22720%22%20cy%3D%2265%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22880%22%20cy%3D%22140%22%20r%3D%222%22%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%22M0%20500Q220%20430%20410%20490T1000%20450V700H0Z%22%20fill%3D%22%23090c13%22%2F%3E%3Ccircle%20cx%3D%22510%22%20cy%3D%22470%22%20r%3D%22210%22%20fill%3D%22url(%23f)%22%2F%3E%3Cpath%20d%3D%22M470%20550q30-120%2055-10%2030-130%2055%205-25%2060-55%2072-35-12-55-67%22%20fill%3D%22%23ff9f43%22%2F%3E%3Cg%20fill%3D%22%2305070d%22%3E%3Ccircle%20cx%3D%22310%22%20cy%3D%22400%22%20r%3D%2230%22%2F%3E%3Cpath%20d%3D%22M280%20440l-25%20150h115l-30-150z%22%2F%3E%3Ccircle%20cx%3D%22710%22%20cy%3D%22395%22%20r%3D%2228%22%2F%3E%3Cpath%20d%3D%22M682%20435l-30%20155h118l-32-155z%22%2F%3E%3Ccircle%20cx%3D%22145%22%20cy%3D%22440%22%20r%3D%2225%22%2F%3E%3Cpath%20d%3D%22M120%20475l-30%20125h105l-27-125z%22%2F%3E%3Ccircle%20cx%3D%22855%22%20cy%3D%22435%22%20r%3D%2226%22%2F%3E%3Cpath%20d%3D%22M830%20470l-25%20130h105l-30-130z%22%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%22M60%20250Q500%20190%20940%20250%22%20fill%3D%22none%22%20stroke%3D%22%234f355f%22%20stroke-width%3D%224%22%2F%3E%3Cg%20fill%3D%22%23ffca72%22%3E%3Ccircle%20cx%3D%22100%22%20cy%3D%22242%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22220%22%20cy%3D%22224%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22350%22%20cy%3D%22212%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22500%22%20cy%3D%22207%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22650%22%20cy%3D%22212%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22790%22%20cy%3D%22226%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22910%22%20cy%3D%22243%22%20r%3D%229%22%2F%3E%3C%2Fg%3E%3Ctext%20x%3D%2252%22%20y%3D%22650%22%20fill%3D%22%23fff%22%20opacity%3D%22.5%22%20font-family%3D%22Arial%22%20font-size%3D%2222%22%20letter-spacing%3D%225%22%3EWEEKEND%20WARRIORS%3C%2Ftext%3E%3C%2Fsvg%3E"], likes: 48, liked: false, commentsEnabled: true,
+        comments: [
+          { author:"Liam Cooper", avatar:"data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22a%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%2343c6f5%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23214a66%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22url(%23a)%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2239%22%20r%3D%2220%22%20fill%3D%22%23f3c9aa%22%2F%3E%3Cpath%20d%3D%22M18%20100q5-38%2032-38t32%2038%22%20fill%3D%22%23101725%22%2F%3E%3Cpath%20d%3D%22M29%2035q3-28%2023-26%2019%202%2020%2028-9-14-22-14-12%200-21%2012%22%20fill%3D%22%23111622%22%2F%3E%3C%2Fsvg%3E", body:"The sensible decisions lasted about twelve minutes 😂", time:"12m" },
+          { author:"Maya Lee", avatar:"data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22a%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%234ee09f%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23285340%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22url(%23a)%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2239%22%20r%3D%2220%22%20fill%3D%22%23f3c9aa%22%2F%3E%3Cpath%20d%3D%22M18%20100q5-38%2032-38t32%2038%22%20fill%3D%22%23101725%22%2F%3E%3Cpath%20d%3D%22M29%2035q3-28%2023-26%2019%202%2020%2028-9-14-22-14-12%200-21%2012%22%20fill%3D%22%23111622%22%2F%3E%3C%2Fsvg%3E", body:"Need the unedited version immediately.", time:"7m" }
+        ]
+      },
+      {
+        id: "p2", author: "Liam Cooper", username: "liamc", avatar: "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22a%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%2343c6f5%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23214a66%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22url(%23a)%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2239%22%20r%3D%2220%22%20fill%3D%22%23f3c9aa%22%2F%3E%3Cpath%20d%3D%22M18%20100q5-38%2032-38t32%2038%22%20fill%3D%22%23101725%22%2F%3E%3Cpath%20d%3D%22M29%2035q3-28%2023-26%2019%202%2020%2028-9-14-22-14-12%200-21%2012%22%20fill%3D%22%23111622%22%2F%3E%3C%2Fsvg%3E", time: "2 hr", location: "Cornwall", caption: "No plan. Bad directions. Great weekend.", images: ["data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201000%20700%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22sky%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%235bc4ef%22%2F%3E%3Cstop%20offset%3D%22.62%22%20stop-color%3D%22%23f6c783%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ce765b%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221000%22%20height%3D%22700%22%20fill%3D%22url(%23sky)%22%2F%3E%3Cpath%20d%3D%22M0%20390L220%20170l200%20220%20180-155%20180%20155%20220-190v500H0Z%22%20fill%3D%22%23263b4d%22%20opacity%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M0%20465L190%20325l170%20140%20180-120%20160%20120%20300-180v415H0Z%22%20fill%3D%22%23172934%22%2F%3E%3Cpath%20d%3D%22M360%20700l100-310h80l100%20310%22%20fill%3D%22%2324262c%22%2F%3E%3Cpath%20d%3D%22M466%20660l28-85h12l28%2085%22%20fill%3D%22%23f8eec2%22%20opacity%3D%22.65%22%2F%3E%3Cg%20transform%3D%22translate(260%20440)%22%3E%3Crect%20width%3D%22280%22%20height%3D%22125%22%20rx%3D%2225%22%20fill%3D%22%23e15b5e%22%2F%3E%3Crect%20x%3D%2235%22%20y%3D%2222%22%20width%3D%2275%22%20height%3D%2250%22%20rx%3D%228%22%20fill%3D%22%23bce8f4%22%2F%3E%3Crect%20x%3D%22126%22%20y%3D%2222%22%20width%3D%2275%22%20height%3D%2250%22%20rx%3D%228%22%20fill%3D%22%23bce8f4%22%2F%3E%3Crect%20x%3D%22215%22%20y%3D%2252%22%20width%3D%2245%22%20height%3D%2225%22%20rx%3D%226%22%20fill%3D%22%23bce8f4%22%2F%3E%3Ccircle%20cx%3D%2268%22%20cy%3D%22128%22%20r%3D%2228%22%20fill%3D%22%23111923%22%2F%3E%3Ccircle%20cx%3D%22220%22%20cy%3D%22128%22%20r%3D%2228%22%20fill%3D%22%23111923%22%2F%3E%3Ccircle%20cx%3D%2268%22%20cy%3D%22128%22%20r%3D%2212%22%20fill%3D%22%2375818a%22%2F%3E%3Ccircle%20cx%3D%22220%22%20cy%3D%22128%22%20r%3D%2212%22%20fill%3D%22%2375818a%22%2F%3E%3C%2Fg%3E%3Ctext%20x%3D%2252%22%20y%3D%22650%22%20fill%3D%22%23fff%22%20opacity%3D%22.58%22%20font-family%3D%22Arial%22%20font-size%3D%2222%22%20letter-spacing%3D%225%22%3ECORNWALL%20%E2%80%A2%20NO%20PLAN%20NEEDED%3C%2Ftext%3E%3C%2Fsvg%3E"], likes: 31, liked: true, commentsEnabled: true,
+        comments: [{ author:"Tom Harris", avatar:"data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22a%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23ffb85b%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%2367452a%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22url(%23a)%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2239%22%20r%3D%2220%22%20fill%3D%22%23f3c9aa%22%2F%3E%3Cpath%20d%3D%22M18%20100q5-38%2032-38t32%2038%22%20fill%3D%22%23101725%22%2F%3E%3Cpath%20d%3D%22M29%2035q3-28%2023-26%2019%202%2020%2028-9-14-22-14-12%200-21%2012%22%20fill%3D%22%23111622%22%2F%3E%3C%2Fsvg%3E", body:"Still convinced my route was quicker.", time:"1h" }]
+      },
+      {
+        id: "p3", author: "Maya Lee", username: "mayalee", avatar: "data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22a%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%234ee09f%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23285340%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22url(%23a)%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2239%22%20r%3D%2220%22%20fill%3D%22%23f3c9aa%22%2F%3E%3Cpath%20d%3D%22M18%20100q5-38%2032-38t32%2038%22%20fill%3D%22%23101725%22%2F%3E%3Cpath%20d%3D%22M29%2035q3-28%2023-26%2019%202%2020%2028-9-14-22-14-12%200-21%2012%22%20fill%3D%22%23111622%22%2F%3E%3C%2Fsvg%3E", time: "Yesterday", location: "Newquay", caption: "Last one in buys breakfast.", images: ["data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201000%20700%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22s%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23ff7a65%22%2F%3E%3Cstop%20offset%3D%22.45%22%20stop-color%3D%22%237a5dbe%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23132841%22%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D%22w%22%3E%3Cstop%20stop-color%3D%22%23254f6f%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%230b1a2d%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221000%22%20height%3D%22700%22%20fill%3D%22url(%23s)%22%2F%3E%3Ccircle%20cx%3D%22770%22%20cy%3D%22180%22%20r%3D%2278%22%20fill%3D%22%23ffd68a%22%20opacity%3D%22.95%22%2F%3E%3Cpath%20d%3D%22M0%20400Q180%20350%20330%20410T650%20405T1000%20370V700H0Z%22%20fill%3D%22url(%23w)%22%2F%3E%3Cpath%20d%3D%22M0%20445Q230%20390%20460%20455T1000%20420%22%20fill%3D%22none%22%20stroke%3D%22%237edcff%22%20stroke-opacity%3D%22.3%22%20stroke-width%3D%2210%22%2F%3E%3Cg%20fill%3D%22%2307111d%22%3E%3Ccircle%20cx%3D%22290%22%20cy%3D%22355%22%20r%3D%2224%22%2F%3E%3Cpath%20d%3D%22M275%20385l-22%20100h72l-16-100z%22%2F%3E%3Cpath%20d%3D%22M257%20420l-75%2045M315%20420l83%2040%22%20stroke%3D%22%2307111d%22%20stroke-width%3D%2222%22%20stroke-linecap%3D%22round%22%2F%3E%3Cellipse%20cx%3D%22285%22%20cy%3D%22505%22%20rx%3D%22140%22%20ry%3D%2218%22%20transform%3D%22rotate(-8%20285%20505)%22%2F%3E%3Ccircle%20cx%3D%22585%22%20cy%3D%22360%22%20r%3D%2222%22%2F%3E%3Cpath%20d%3D%22M570%20388l-12%2094h70l-24-94z%22%2F%3E%3Cpath%20d%3D%22M566%20420l-75%2036M610%20420l74%2048%22%20stroke%3D%22%2307111d%22%20stroke-width%3D%2220%22%20stroke-linecap%3D%22round%22%2F%3E%3Cellipse%20cx%3D%22585%22%20cy%3D%22505%22%20rx%3D%22132%22%20ry%3D%2217%22%20transform%3D%22rotate(7%20585%20505)%22%2F%3E%3C%2Fg%3E%3Ctext%20x%3D%2255%22%20y%3D%22635%22%20fill%3D%22%23fff%22%20opacity%3D%22.55%22%20font-family%3D%22Arial%22%20font-size%3D%2222%22%20letter-spacing%3D%225%22%3ELATE%20SURF%20%E2%80%A2%20THE%20CREW%3C%2Ftext%3E%3C%2Fsvg%3E"], likes: 72, liked: false, commentsEnabled: false, comments: []
+      }
+    ]
+  };
+
+  const people = [
+    {name:"Maya Lee", user:"mayalee", avatar:"data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22a%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%234ee09f%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23285340%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22url(%23a)%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2239%22%20r%3D%2220%22%20fill%3D%22%23f3c9aa%22%2F%3E%3Cpath%20d%3D%22M18%20100q5-38%2032-38t32%2038%22%20fill%3D%22%23101725%22%2F%3E%3Cpath%20d%3D%22M29%2035q3-28%2023-26%2019%202%2020%2028-9-14-22-14-12%200-21%2012%22%20fill%3D%22%23111622%22%2F%3E%3C%2Fsvg%3E"},
+    {name:"Tom Harris", user:"tomharris", avatar:"data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22a%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23ffb85b%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%2367452a%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22url(%23a)%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2239%22%20r%3D%2220%22%20fill%3D%22%23f3c9aa%22%2F%3E%3Cpath%20d%3D%22M18%20100q5-38%2032-38t32%2038%22%20fill%3D%22%23101725%22%2F%3E%3Cpath%20d%3D%22M29%2035q3-28%2023-26%2019%202%2020%2028-9-14-22-14-12%200-21%2012%22%20fill%3D%22%23111622%22%2F%3E%3C%2Fsvg%3E"},
+    {name:"Jess Smith", user:"jesssmith", avatar:"data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22a%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23e782cc%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23503466%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22url(%23a)%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2239%22%20r%3D%2220%22%20fill%3D%22%23f3c9aa%22%2F%3E%3Cpath%20d%3D%22M18%20100q5-38%2032-38t32%2038%22%20fill%3D%22%23101725%22%2F%3E%3Cpath%20d%3D%22M29%2035q3-28%2023-26%2019%202%2020%2028-9-14-22-14-12%200-21%2012%22%20fill%3D%22%23111622%22%2F%3E%3C%2Fsvg%3E"}
+  ];
+
+  const notifications = [
+    {avatar:"data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22a%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23e782cc%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23503466%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22url(%23a)%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2239%22%20r%3D%2220%22%20fill%3D%22%23f3c9aa%22%2F%3E%3Cpath%20d%3D%22M18%20100q5-38%2032-38t32%2038%22%20fill%3D%22%23101725%22%2F%3E%3Cpath%20d%3D%22M29%2035q3-28%2023-26%2019%202%2020%2028-9-14-22-14-12%200-21%2012%22%20fill%3D%22%23111622%22%2F%3E%3C%2Fsvg%3E", text:"Jess Smith liked your photo.", time:"2m", unread:true},
+    {avatar:"data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22a%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%234ee09f%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23285340%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22url(%23a)%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2239%22%20r%3D%2220%22%20fill%3D%22%23f3c9aa%22%2F%3E%3Cpath%20d%3D%22M18%20100q5-38%2032-38t32%2038%22%20fill%3D%22%23101725%22%2F%3E%3Cpath%20d%3D%22M29%2035q3-28%2023-26%2019%202%2020%2028-9-14-22-14-12%200-21%2012%22%20fill%3D%22%23111622%22%2F%3E%3C%2Fsvg%3E", text:"Maya Lee commented: “Need the unedited version immediately.”", time:"7m", unread:true},
+    {avatar:"data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22a%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23ffb85b%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%2367452a%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22url(%23a)%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2239%22%20r%3D%2220%22%20fill%3D%22%23f3c9aa%22%2F%3E%3Cpath%20d%3D%22M18%20100q5-38%2032-38t32%2038%22%20fill%3D%22%23101725%22%2F%3E%3Cpath%20d%3D%22M29%2035q3-28%2023-26%2019%202%2020%2028-9-14-22-14-12%200-21%2012%22%20fill%3D%22%23111622%22%2F%3E%3C%2Fsvg%3E", text:"Tom Harris joined from your invite link.", time:"1h", unread:false},
+    {avatar:"data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22a%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%2343c6f5%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23214a66%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22url(%23a)%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2239%22%20r%3D%2220%22%20fill%3D%22%23f3c9aa%22%2F%3E%3Cpath%20d%3D%22M18%20100q5-38%2032-38t32%2038%22%20fill%3D%22%23101725%22%2F%3E%3Cpath%20d%3D%22M29%2035q3-28%2023-26%2019%202%2020%2028-9-14-22-14-12%200-21%2012%22%20fill%3D%22%23111622%22%2F%3E%3C%2Fsvg%3E", text:"Liam Cooper uploaded 3 new photos.", time:"4h", unread:false}
+  ];
+
+  function brand(compact=false) {
+    return `<a href="#" class="brand ${compact ? "compact" : ""}" data-route="${state.loggedIn ? "feed" : "landing"}"><span class="brand-mark" aria-label="MMN"><i>M</i><i>M</i><i>N</i></span><span class="brand-name"><strong>My Mate Nasty</strong><span>Social photos, not for social media.</span></span></a>`;
+  }
+
+  function publicNav() {
+    return `<header class="public-nav container">${brand()}<nav class="public-nav-links"><a href="#features">Features</a><a href="#how">How it works</a><button class="btn btn-subtle" data-route="login">Sign in</button><button class="btn btn-primary" data-route="signup">Create account</button></nav></header>`;
+  }
+
+  function renderLanding() {
+    document.title = "My Mate Nasty — Social photos, not for social media.";
+    return `<div class="page-shell">${publicNav()}
+      <main>
+        <section class="hero container">
+          <div class="hero-copy">
+            <span class="eyebrow">A more private kind of social</span>
+            <h1>The moments that matter, <em>without the performance.</em></h1>
+            <p>My Mate Nasty is a refined social photo platform for the photographs that belong between real people — one shared feed, genuine reactions and none of the follower-count theatre.</p>
+            <div class="hero-actions"><button class="btn btn-primary btn-lg" data-route="signup">Join My Mate Nasty</button><button class="btn btn-subtle btn-lg" data-action="demo-login">Preview the platform</button></div>
+            <div class="hero-notes"><span>Open to join</span><span>Up to 10 photos per post</span><span>No follower counts</span></div>
+          </div>
+          <div class="editorial-preview" aria-label="Platform preview">
+            <div class="preview-frame">
+              <div class="preview-top"><span class="brand-mark" aria-label="MMN"><i>M</i><i>M</i><i>N</i></span><div class="search-pill">Search people or captions</div><span class="btn btn-primary btn-sm">Post</span></div>
+              <div class="preview-layout">
+                <aside class="preview-sidebar"><div class="mini-brand"><span class="brand-mark" aria-label="MMN"><i>M</i><i>M</i><i>N</i></span> My Mate Nasty</div><div class="preview-nav-item active">⌂ <span>Feed</span></div><div class="preview-nav-item">⌕ <span>Search</span></div><div class="preview-nav-item">♡ <span>Activity</span></div><div class="preview-nav-item">◎ <span>Profile</span></div></aside>
+                <section class="preview-feed"><div class="preview-feed-title"><div><span>Shared feed</span><h3>Latest photos</h3></div><span>Newest first</span></div>
+                  <article class="demo-post"><div class="demo-post-head"><img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22a%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23e782cc%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23503466%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22url(%23a)%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2239%22%20r%3D%2220%22%20fill%3D%22%23f3c9aa%22%2F%3E%3Cpath%20d%3D%22M18%20100q5-38%2032-38t32%2038%22%20fill%3D%22%23101725%22%2F%3E%3Cpath%20d%3D%22M29%2035q3-28%2023-26%2019%202%2020%2028-9-14-22-14-12%200-21%2012%22%20fill%3D%22%23111622%22%2F%3E%3C%2Fsvg%3E" alt=""><div><strong>Jess Smith</strong><small>Brighton · 18 min</small></div><b>•••</b></div><img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201000%20700%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22r%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23553f91%22%2F%3E%3Cstop%20offset%3D%22.48%22%20stop-color%3D%22%23dd618c%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ffb05f%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221000%22%20height%3D%22700%22%20fill%3D%22url(%23r)%22%2F%3E%3Ccircle%20cx%3D%22500%22%20cy%3D%22250%22%20r%3D%22100%22%20fill%3D%22%23ffd999%22%20opacity%3D%22.8%22%2F%3E%3Cpath%20d%3D%22M0%20450h70v-160h80v160h70V250h90v200h80V330h120v120h60V210h110v240h90V300h80v150h150v250H0Z%22%20fill%3D%22%23161525%22%20opacity%3D%22.92%22%2F%3E%3Cg%20fill%3D%22%23070812%22%3E%3Ccircle%20cx%3D%22330%22%20cy%3D%22395%22%20r%3D%2225%22%2F%3E%3Cpath%20d%3D%22M300%20430l-30%20170h120l-30-170z%22%2F%3E%3Ccircle%20cx%3D%22500%22%20cy%3D%22380%22%20r%3D%2226%22%2F%3E%3Cpath%20d%3D%22M468%20420l-20%20180h120l-38-180z%22%2F%3E%3Ccircle%20cx%3D%22680%22%20cy%3D%22398%22%20r%3D%2224%22%2F%3E%3Cpath%20d%3D%22M650%20430l-22%20170h115l-33-170z%22%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%22M0%20600h1000v100H0z%22%20fill%3D%22%23080910%22%2F%3E%3Ctext%20x%3D%2252%22%20y%3D%22655%22%20fill%3D%22%23fff%22%20opacity%3D%22.52%22%20font-family%3D%22Arial%22%20font-size%3D%2222%22%20letter-spacing%3D%225%22%3EONE%20DRINK%20%E2%80%A2%20APPARENTLY%3C%2Ftext%3E%3C%2Fsvg%3E" alt="Demo social post"><div class="demo-post-actions"><span>♥ 48</span><span>◯ 12</span><span>▱</span></div><div class="demo-post-caption">One of those evenings that starts with “just one”…</div></article>
+                  <div class="preview-grid"><div class="preview-tile"><img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201000%20700%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22sky%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%235bc4ef%22%2F%3E%3Cstop%20offset%3D%22.62%22%20stop-color%3D%22%23f6c783%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ce765b%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221000%22%20height%3D%22700%22%20fill%3D%22url(%23sky)%22%2F%3E%3Cpath%20d%3D%22M0%20390L220%20170l200%20220%20180-155%20180%20155%20220-190v500H0Z%22%20fill%3D%22%23263b4d%22%20opacity%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M0%20465L190%20325l170%20140%20180-120%20160%20120%20300-180v415H0Z%22%20fill%3D%22%23172934%22%2F%3E%3Cpath%20d%3D%22M360%20700l100-310h80l100%20310%22%20fill%3D%22%2324262c%22%2F%3E%3Cpath%20d%3D%22M466%20660l28-85h12l28%2085%22%20fill%3D%22%23f8eec2%22%20opacity%3D%22.65%22%2F%3E%3Cg%20transform%3D%22translate(260%20440)%22%3E%3Crect%20width%3D%22280%22%20height%3D%22125%22%20rx%3D%2225%22%20fill%3D%22%23e15b5e%22%2F%3E%3Crect%20x%3D%2235%22%20y%3D%2222%22%20width%3D%2275%22%20height%3D%2250%22%20rx%3D%228%22%20fill%3D%22%23bce8f4%22%2F%3E%3Crect%20x%3D%22126%22%20y%3D%2222%22%20width%3D%2275%22%20height%3D%2250%22%20rx%3D%228%22%20fill%3D%22%23bce8f4%22%2F%3E%3Crect%20x%3D%22215%22%20y%3D%2252%22%20width%3D%2245%22%20height%3D%2225%22%20rx%3D%226%22%20fill%3D%22%23bce8f4%22%2F%3E%3Ccircle%20cx%3D%2268%22%20cy%3D%22128%22%20r%3D%2228%22%20fill%3D%22%23111923%22%2F%3E%3Ccircle%20cx%3D%22220%22%20cy%3D%22128%22%20r%3D%2228%22%20fill%3D%22%23111923%22%2F%3E%3Ccircle%20cx%3D%2268%22%20cy%3D%22128%22%20r%3D%2212%22%20fill%3D%22%2375818a%22%2F%3E%3Ccircle%20cx%3D%22220%22%20cy%3D%22128%22%20r%3D%2212%22%20fill%3D%22%2375818a%22%2F%3E%3C%2Fg%3E%3Ctext%20x%3D%2252%22%20y%3D%22650%22%20fill%3D%22%23fff%22%20opacity%3D%22.58%22%20font-family%3D%22Arial%22%20font-size%3D%2222%22%20letter-spacing%3D%225%22%3ECORNWALL%20%E2%80%A2%20NO%20PLAN%20NEEDED%3C%2Ftext%3E%3C%2Fsvg%3E" alt=""><strong>No plan. Great weekend.</strong><span>31 likes</span></div><div class="preview-tile"><img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201000%20700%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22s%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23ff7a65%22%2F%3E%3Cstop%20offset%3D%22.45%22%20stop-color%3D%22%237a5dbe%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23132841%22%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D%22w%22%3E%3Cstop%20stop-color%3D%22%23254f6f%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%230b1a2d%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221000%22%20height%3D%22700%22%20fill%3D%22url(%23s)%22%2F%3E%3Ccircle%20cx%3D%22770%22%20cy%3D%22180%22%20r%3D%2278%22%20fill%3D%22%23ffd68a%22%20opacity%3D%22.95%22%2F%3E%3Cpath%20d%3D%22M0%20400Q180%20350%20330%20410T650%20405T1000%20370V700H0Z%22%20fill%3D%22url(%23w)%22%2F%3E%3Cpath%20d%3D%22M0%20445Q230%20390%20460%20455T1000%20420%22%20fill%3D%22none%22%20stroke%3D%22%237edcff%22%20stroke-opacity%3D%22.3%22%20stroke-width%3D%2210%22%2F%3E%3Cg%20fill%3D%22%2307111d%22%3E%3Ccircle%20cx%3D%22290%22%20cy%3D%22355%22%20r%3D%2224%22%2F%3E%3Cpath%20d%3D%22M275%20385l-22%20100h72l-16-100z%22%2F%3E%3Cpath%20d%3D%22M257%20420l-75%2045M315%20420l83%2040%22%20stroke%3D%22%2307111d%22%20stroke-width%3D%2222%22%20stroke-linecap%3D%22round%22%2F%3E%3Cellipse%20cx%3D%22285%22%20cy%3D%22505%22%20rx%3D%22140%22%20ry%3D%2218%22%20transform%3D%22rotate(-8%20285%20505)%22%2F%3E%3Ccircle%20cx%3D%22585%22%20cy%3D%22360%22%20r%3D%2222%22%2F%3E%3Cpath%20d%3D%22M570%20388l-12%2094h70l-24-94z%22%2F%3E%3Cpath%20d%3D%22M566%20420l-75%2036M610%20420l74%2048%22%20stroke%3D%22%2307111d%22%20stroke-width%3D%2220%22%20stroke-linecap%3D%22round%22%2F%3E%3Cellipse%20cx%3D%22585%22%20cy%3D%22505%22%20rx%3D%22132%22%20ry%3D%2217%22%20transform%3D%22rotate(7%20585%20505)%22%2F%3E%3C%2Fg%3E%3Ctext%20x%3D%2255%22%20y%3D%22635%22%20fill%3D%22%23fff%22%20opacity%3D%22.55%22%20font-family%3D%22Arial%22%20font-size%3D%2222%22%20letter-spacing%3D%225%22%3ELATE%20SURF%20%E2%80%A2%20THE%20CREW%3C%2Ftext%3E%3C%2Fsvg%3E" alt=""><strong>Last one in buys breakfast.</strong><span>72 likes</span></div></div>
+                </section>
+                <aside class="preview-rail"><div class="mini-panel"><label>People you know</label><div class="mini-avatars"><img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22a%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%2343c6f5%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23214a66%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22url(%23a)%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2239%22%20r%3D%2220%22%20fill%3D%22%23f3c9aa%22%2F%3E%3Cpath%20d%3D%22M18%20100q5-38%2032-38t32%2038%22%20fill%3D%22%23101725%22%2F%3E%3Cpath%20d%3D%22M29%2035q3-28%2023-26%2019%202%2020%2028-9-14-22-14-12%200-21%2012%22%20fill%3D%22%23111622%22%2F%3E%3C%2Fsvg%3E"><img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22a%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23e782cc%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23503466%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22url(%23a)%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2239%22%20r%3D%2220%22%20fill%3D%22%23f3c9aa%22%2F%3E%3Cpath%20d%3D%22M18%20100q5-38%2032-38t32%2038%22%20fill%3D%22%23101725%22%2F%3E%3Cpath%20d%3D%22M29%2035q3-28%2023-26%2019%202%2020%2028-9-14-22-14-12%200-21%2012%22%20fill%3D%22%23111622%22%2F%3E%3C%2Fsvg%3E"><img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22a%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23ffb85b%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%2367452a%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22url(%23a)%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2239%22%20r%3D%2220%22%20fill%3D%22%23f3c9aa%22%2F%3E%3Cpath%20d%3D%22M18%20100q5-38%2032-38t32%2038%22%20fill%3D%22%23101725%22%2F%3E%3Cpath%20d%3D%22M29%2035q3-28%2023-26%2019%202%2020%2028-9-14-22-14-12%200-21%2012%22%20fill%3D%22%23111622%22%2F%3E%3C%2Fsvg%3E"><img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22a%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%234ee09f%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23285340%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22url(%23a)%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2239%22%20r%3D%2220%22%20fill%3D%22%23f3c9aa%22%2F%3E%3Cpath%20d%3D%22M18%20100q5-38%2032-38t32%2038%22%20fill%3D%22%23101725%22%2F%3E%3Cpath%20d%3D%22M29%2035q3-28%2023-26%2019%202%2020%2028-9-14-22-14-12%200-21%2012%22%20fill%3D%22%23111622%22%2F%3E%3C%2Fsvg%3E"></div></div><div class="mini-panel mini-invite"><strong>Send it to a mate.</strong><p>Share one link. They create an account and join the feed.</p><button>Copy invite link</button></div></aside>
+              </div>
+            </div>
+            <div class="phone-preview"><div class="phone-status"><span>9:41</span><span>•••</span></div><div class="phone-brand"><span class="brand-mark" aria-label="MMN"><i>M</i><i>M</i><i>N</i></span>My Mate Nasty</div><div class="story-row">${people.slice(0,3).map(p=>`<div class="story-item"><img src="${p.avatar}"><span>${p.name.split(' ')[0]}</span></div>`).join('')}<div class="story-item"><img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22a%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%2343c6f5%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23214a66%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22url(%23a)%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2239%22%20r%3D%2220%22%20fill%3D%22%23f3c9aa%22%2F%3E%3Cpath%20d%3D%22M18%20100q5-38%2032-38t32%2038%22%20fill%3D%22%23101725%22%2F%3E%3Cpath%20d%3D%22M29%2035q3-28%2023-26%2019%202%2020%2028-9-14-22-14-12%200-21%2012%22%20fill%3D%22%23111622%22%2F%3E%3C%2Fsvg%3E"><span>You</span></div></div><div class="phone-post"><div class="demo-post-head"><img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22a%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%234ee09f%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23285340%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22url(%23a)%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2239%22%20r%3D%2220%22%20fill%3D%22%23f3c9aa%22%2F%3E%3Cpath%20d%3D%22M18%20100q5-38%2032-38t32%2038%22%20fill%3D%22%23101725%22%2F%3E%3Cpath%20d%3D%22M29%2035q3-28%2023-26%2019%202%2020%2028-9-14-22-14-12%200-21%2012%22%20fill%3D%22%23111622%22%2F%3E%3C%2Fsvg%3E"><div><strong>Maya Lee</strong><small>Newquay · 1d</small></div></div><img src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201000%20700%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22s%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23ff7a65%22%2F%3E%3Cstop%20offset%3D%22.45%22%20stop-color%3D%22%237a5dbe%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23132841%22%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D%22w%22%3E%3Cstop%20stop-color%3D%22%23254f6f%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%230b1a2d%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221000%22%20height%3D%22700%22%20fill%3D%22url(%23s)%22%2F%3E%3Ccircle%20cx%3D%22770%22%20cy%3D%22180%22%20r%3D%2278%22%20fill%3D%22%23ffd68a%22%20opacity%3D%22.95%22%2F%3E%3Cpath%20d%3D%22M0%20400Q180%20350%20330%20410T650%20405T1000%20370V700H0Z%22%20fill%3D%22url(%23w)%22%2F%3E%3Cpath%20d%3D%22M0%20445Q230%20390%20460%20455T1000%20420%22%20fill%3D%22none%22%20stroke%3D%22%237edcff%22%20stroke-opacity%3D%22.3%22%20stroke-width%3D%2210%22%2F%3E%3Cg%20fill%3D%22%2307111d%22%3E%3Ccircle%20cx%3D%22290%22%20cy%3D%22355%22%20r%3D%2224%22%2F%3E%3Cpath%20d%3D%22M275%20385l-22%20100h72l-16-100z%22%2F%3E%3Cpath%20d%3D%22M257%20420l-75%2045M315%20420l83%2040%22%20stroke%3D%22%2307111d%22%20stroke-width%3D%2222%22%20stroke-linecap%3D%22round%22%2F%3E%3Cellipse%20cx%3D%22285%22%20cy%3D%22505%22%20rx%3D%22140%22%20ry%3D%2218%22%20transform%3D%22rotate(-8%20285%20505)%22%2F%3E%3Ccircle%20cx%3D%22585%22%20cy%3D%22360%22%20r%3D%2222%22%2F%3E%3Cpath%20d%3D%22M570%20388l-12%2094h70l-24-94z%22%2F%3E%3Cpath%20d%3D%22M566%20420l-75%2036M610%20420l74%2048%22%20stroke%3D%22%2307111d%22%20stroke-width%3D%2220%22%20stroke-linecap%3D%22round%22%2F%3E%3Cellipse%20cx%3D%22585%22%20cy%3D%22505%22%20rx%3D%22132%22%20ry%3D%2217%22%20transform%3D%22rotate(7%20585%20505)%22%2F%3E%3C%2Fg%3E%3Ctext%20x%3D%2255%22%20y%3D%22635%22%20fill%3D%22%23fff%22%20opacity%3D%22.55%22%20font-family%3D%22Arial%22%20font-size%3D%2222%22%20letter-spacing%3D%225%22%3ELATE%20SURF%20%E2%80%A2%20THE%20CREW%3C%2Ftext%3E%3C%2Fsvg%3E"></div><div class="phone-bottom"><span>⌂</span><span>⌕</span><span class="plus">+</span><span>♡</span><span>◎</span></div></div>
+          </div>
+        </section>
+        <section id="features" class="public-section container"><div class="section-header"><div><span class="eyebrow">Designed to feel effortless</span><h2>Social media, with an <em>editorial edge.</em></h2></div><p>A calm, image-led interface that makes the photography the main event. No follower chasing, no complicated groups and no unnecessary clutter.</p></div><div class="feature-grid">
+          <article class="feature-card"><span class="feature-index">01</span><h3>One shared feed</h3><p>Every member posts into the same chronological feed, making the platform immediate and easy to understand.</p></article>
+          <article class="feature-card"><span class="feature-index">02</span><h3>Up to ten photos</h3><p>Tell the whole story in a single post with automatic image resizing and stripped location metadata.</p></article>
+          <article class="feature-card"><span class="feature-index">03</span><h3>Likes and comments</h3><p>A simple heart and clean comment experience. Nothing designed to distract from the photos.</p></article>
+          <article class="feature-card"><span class="feature-index">04</span><h3>Profiles, not popularity</h3><p>Profile photo, name, username, short bio and a grid of uploads — without follower counts at launch.</p></article>
+        </div></section>
+        <section id="how" class="container public-cta"><h2>Upload it.<br><em>Let your mates explain.</em></h2><button class="btn btn-lg" data-route="signup">Create an account</button></section>
+      </main>
+      <footer class="public-footer container">${brand()}<span>© ${new Date().getFullYear()} My Mate Nasty · Preview build</span></footer>
+    </div>`;
+  }
+
+  function renderAuth(mode) {
+    const signup = mode === "signup";
+    document.title = `${signup ? "Create account" : "Sign in"} — My Mate Nasty`;
+    return `<main class="auth-page"><aside class="auth-aside">${brand()}<div><h1>${signup ? "Join the feed." : "Back to the"}<br><em>${signup ? "Bring the photos." : "good stuff."}</em></h1><p>${signup ? "Create a profile, upload photos of your mates and join one shared community feed." : "Sign in to view the latest uploads, comments and photos from the community."}</p></div><div class="auth-art"><div class="auth-quote">“A good photo deserves a questionable comment section.”</div></div></aside><section class="auth-main"><div class="auth-card"><button class="btn btn-subtle btn-sm" data-route="landing" style="margin-bottom:28px">← Back</button><h2>${signup ? "Create account" : "Welcome back"}</h2><p>${signup ? "Anyone can join. Your email stays private." : "Enter your details to open the shared feed."}</p>
+      <form id="auth-form" class="form-grid">
+        ${signup ? `<div class="form-row"><div class="field"><label>Display name</label><input class="input" name="displayName" required placeholder="Michael Bruford"></div><div class="field"><label>Username</label><input class="input" name="username" required minlength="3" placeholder="michaelb"></div></div>` : ""}
+        <div class="field"><label>Email address</label><input class="input" type="email" name="email" required placeholder="you@example.com"></div>
+        <div class="field"><label>Password</label><input class="input" type="password" name="password" required minlength="8" placeholder="At least 8 characters"><span class="field-help">Use at least eight characters. Passwords will be handled securely by Supabase in the live build.</span></div>
+        ${signup ? `<div class="field"><label>About you <span style="color:var(--muted);font-weight:400">(optional)</span></label><textarea class="textarea" name="bio" maxlength="180" placeholder="One or two sentences about you."></textarea></div>` : ""}
+        <button class="btn btn-primary btn-lg" type="submit">${signup ? "Create account" : "Sign in"}</button>
+      </form><div class="auth-switch">${signup ? "Already have an account?" : "New here?"} <button data-route="${signup ? "login" : "signup"}">${signup ? "Sign in" : "Create account"}</button></div>${signup ? `<p class="terms-note">By creating an account, you agree not to upload photographs you do not have permission to share.</p>` : ""}</div></section></main>`;
+  }
+
+  function sidebar() {
+    const nav = [
+      ["feed", icons.home, "Feed"], ["search", icons.search, "Search"], ["notifications", icons.bell, "Activity"], ["profile", icons.user, "Profile"], ["settings", icons.settings, "Settings"]
+    ];
+    return `<aside class="app-sidebar">${brand()}<nav class="app-nav">${nav.map(([r,i,l])=>`<button class="nav-link ${state.route===r?'active':''}" data-route="${r}">${i}<span>${l}</span>${r==='notifications'?'<b class="nav-count">2</b>':''}</button>`).join('')}</nav><button class="btn btn-primary sidebar-create" data-action="open-create">${icons.plus}<span>Create post</span></button><div class="sidebar-user"><img class="avatar" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22a%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%2343c6f5%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23214a66%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22url(%23a)%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2239%22%20r%3D%2220%22%20fill%3D%22%23f3c9aa%22%2F%3E%3Cpath%20d%3D%22M18%20100q5-38%2032-38t32%2038%22%20fill%3D%22%23101725%22%2F%3E%3Cpath%20d%3D%22M29%2035q3-28%2023-26%2019%202%2020%2028-9-14-22-14-12%200-21%2012%22%20fill%3D%22%23111622%22%2F%3E%3C%2Fsvg%3E" alt=""><div><strong>Michael Bruford</strong><span>@michaelb</span></div><button class="btn btn-icon btn-sm" data-action="logout" aria-label="Sign out">↗</button></div></aside>`;
+  }
+
+  function appHeader(title, subtitle="") {
+    return `<header class="app-header"><div class="app-header-title"><strong>${title}</strong><span>${subtitle}</span></div><div class="search-box">${icons.search}<input placeholder="Search people or captions" aria-label="Search"></div><div class="header-actions"><button class="btn btn-icon" data-action="open-invite" aria-label="Invite a mate">${icons.share}</button><button class="btn btn-icon" data-route="notifications" aria-label="Notifications">${icons.bell}</button><button class="btn btn-accent btn-sm" data-action="open-create">${icons.plus} Post</button></div></header>`;
+  }
+
+  function mobileTabs() {
+    const tabs = [["feed",icons.home],["search",icons.search],["create",icons.plus],["notifications",icons.bell],["profile",icons.user]];
+    return `<nav class="mobile-tabbar">${tabs.map(([r,i])=>`<button class="mobile-tab ${r==='create'?'create':''} ${state.route===r?'active':''}" ${r==='create'?'data-action="open-create"':`data-route="${r}"`}>${i}</button>`).join('')}</nav>`;
+  }
+
+  function postCard(post) {
+    const dots = post.images.length > 1 ? `<span class="media-count">1 / ${post.images.length}</span><div class="media-dots">${post.images.map((_,i)=>`<i class="${i===0?'active':''}"></i>`).join('')}</div>` : "";
+    return `<article class="post-card" data-post-id="${post.id}"><div class="post-header"><img class="avatar" src="${post.avatar}" alt="${post.author}"><div class="post-author"><strong>${post.author}</strong><span>@${post.username} · ${post.time}</span></div><button class="btn btn-icon btn-sm post-menu" aria-label="Post options">${icons.more}</button></div><div class="post-caption">${post.caption}${post.location?`<span class="post-location">${icons.pin}${post.location}</span>`:""}</div><div class="post-media"><img src="${post.images[0]}" alt="Photo posted by ${post.author}">${dots}</div><div class="post-toolbar"><button class="action-btn ${post.liked?'liked':''}" data-action="like" data-id="${post.id}">${icons.heart}<span>${post.likes}</span></button>${post.commentsEnabled?`<button class="action-btn" data-action="comments" data-id="${post.id}">${icons.comment}<span>${post.comments.length}</span></button>`:""}<button class="action-btn save">${icons.bookmark}</button></div><div class="post-summary"><strong>${post.likes} likes</strong>${post.commentsEnabled ? (post.comments.length?`<p><strong>${post.comments[0].author}</strong> ${post.comments[0].body}</p><button data-action="comments" data-id="${post.id}">View ${post.comments.length===1?'comment':`all ${post.comments.length} comments`}</button>`:`<button data-action="comments" data-id="${post.id}">Be the first to comment</button>`) : `<p>Comments are switched off for this post.</p>`}</div></article>`;
+  }
+
+  function feedPage() {
+    return `${appHeader("Shared feed","Newest photos from everyone")}
+      <div class="app-content"><div class="feed-layout"><section class="feed-column"><div class="feed-intro"><div><h1>Latest</h1><p>One feed. No followers. Newest first.</p></div><button class="feed-filter">Newest first ▾</button></div>${state.posts.map(postCard).join('')}</section><aside class="feed-rail"><div class="rail-card"><h3>New people</h3><div class="people-list">${people.map(p=>`<div class="person-row"><img src="${p.avatar}" alt=""><div><strong>${p.name}</strong><span>@${p.user}</span></div><button class="btn btn-sm">View</button></div>`).join('')}</div></div><div class="rail-card invite-rail"><h3>Got a mate missing from the comments?</h3><p>Share your personal invite link. They can create an account in under a minute.</p><button class="btn btn-sm" data-action="open-invite">Invite a mate</button></div></aside></div></div>`;
+  }
+
+  function profilePage() {
+    const photos = ["data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201000%20700%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22r%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23553f91%22%2F%3E%3Cstop%20offset%3D%22.48%22%20stop-color%3D%22%23dd618c%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ffb05f%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221000%22%20height%3D%22700%22%20fill%3D%22url(%23r)%22%2F%3E%3Ccircle%20cx%3D%22500%22%20cy%3D%22250%22%20r%3D%22100%22%20fill%3D%22%23ffd999%22%20opacity%3D%22.8%22%2F%3E%3Cpath%20d%3D%22M0%20450h70v-160h80v160h70V250h90v200h80V330h120v120h60V210h110v240h90V300h80v150h150v250H0Z%22%20fill%3D%22%23161525%22%20opacity%3D%22.92%22%2F%3E%3Cg%20fill%3D%22%23070812%22%3E%3Ccircle%20cx%3D%22330%22%20cy%3D%22395%22%20r%3D%2225%22%2F%3E%3Cpath%20d%3D%22M300%20430l-30%20170h120l-30-170z%22%2F%3E%3Ccircle%20cx%3D%22500%22%20cy%3D%22380%22%20r%3D%2226%22%2F%3E%3Cpath%20d%3D%22M468%20420l-20%20180h120l-38-180z%22%2F%3E%3Ccircle%20cx%3D%22680%22%20cy%3D%22398%22%20r%3D%2224%22%2F%3E%3Cpath%20d%3D%22M650%20430l-22%20170h115l-33-170z%22%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%22M0%20600h1000v100H0z%22%20fill%3D%22%23080910%22%2F%3E%3Ctext%20x%3D%2252%22%20y%3D%22655%22%20fill%3D%22%23fff%22%20opacity%3D%22.52%22%20font-family%3D%22Arial%22%20font-size%3D%2222%22%20letter-spacing%3D%225%22%3EONE%20DRINK%20%E2%80%A2%20APPARENTLY%3C%2Ftext%3E%3C%2Fsvg%3E","data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201000%20700%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22sky%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%235bc4ef%22%2F%3E%3Cstop%20offset%3D%22.62%22%20stop-color%3D%22%23f6c783%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ce765b%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221000%22%20height%3D%22700%22%20fill%3D%22url(%23sky)%22%2F%3E%3Cpath%20d%3D%22M0%20390L220%20170l200%20220%20180-155%20180%20155%20220-190v500H0Z%22%20fill%3D%22%23263b4d%22%20opacity%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M0%20465L190%20325l170%20140%20180-120%20160%20120%20300-180v415H0Z%22%20fill%3D%22%23172934%22%2F%3E%3Cpath%20d%3D%22M360%20700l100-310h80l100%20310%22%20fill%3D%22%2324262c%22%2F%3E%3Cpath%20d%3D%22M466%20660l28-85h12l28%2085%22%20fill%3D%22%23f8eec2%22%20opacity%3D%22.65%22%2F%3E%3Cg%20transform%3D%22translate(260%20440)%22%3E%3Crect%20width%3D%22280%22%20height%3D%22125%22%20rx%3D%2225%22%20fill%3D%22%23e15b5e%22%2F%3E%3Crect%20x%3D%2235%22%20y%3D%2222%22%20width%3D%2275%22%20height%3D%2250%22%20rx%3D%228%22%20fill%3D%22%23bce8f4%22%2F%3E%3Crect%20x%3D%22126%22%20y%3D%2222%22%20width%3D%2275%22%20height%3D%2250%22%20rx%3D%228%22%20fill%3D%22%23bce8f4%22%2F%3E%3Crect%20x%3D%22215%22%20y%3D%2252%22%20width%3D%2245%22%20height%3D%2225%22%20rx%3D%226%22%20fill%3D%22%23bce8f4%22%2F%3E%3Ccircle%20cx%3D%2268%22%20cy%3D%22128%22%20r%3D%2228%22%20fill%3D%22%23111923%22%2F%3E%3Ccircle%20cx%3D%22220%22%20cy%3D%22128%22%20r%3D%2228%22%20fill%3D%22%23111923%22%2F%3E%3Ccircle%20cx%3D%2268%22%20cy%3D%22128%22%20r%3D%2212%22%20fill%3D%22%2375818a%22%2F%3E%3Ccircle%20cx%3D%22220%22%20cy%3D%22128%22%20r%3D%2212%22%20fill%3D%22%2375818a%22%2F%3E%3C%2Fg%3E%3Ctext%20x%3D%2252%22%20y%3D%22650%22%20fill%3D%22%23fff%22%20opacity%3D%22.58%22%20font-family%3D%22Arial%22%20font-size%3D%2222%22%20letter-spacing%3D%225%22%3ECORNWALL%20%E2%80%A2%20NO%20PLAN%20NEEDED%3C%2Ftext%3E%3C%2Fsvg%3E","data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201000%20700%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22s%22%20x2%3D%220%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23ff7a65%22%2F%3E%3Cstop%20offset%3D%22.45%22%20stop-color%3D%22%237a5dbe%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23132841%22%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D%22w%22%3E%3Cstop%20stop-color%3D%22%23254f6f%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%230b1a2d%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221000%22%20height%3D%22700%22%20fill%3D%22url(%23s)%22%2F%3E%3Ccircle%20cx%3D%22770%22%20cy%3D%22180%22%20r%3D%2278%22%20fill%3D%22%23ffd68a%22%20opacity%3D%22.95%22%2F%3E%3Cpath%20d%3D%22M0%20400Q180%20350%20330%20410T650%20405T1000%20370V700H0Z%22%20fill%3D%22url(%23w)%22%2F%3E%3Cpath%20d%3D%22M0%20445Q230%20390%20460%20455T1000%20420%22%20fill%3D%22none%22%20stroke%3D%22%237edcff%22%20stroke-opacity%3D%22.3%22%20stroke-width%3D%2210%22%2F%3E%3Cg%20fill%3D%22%2307111d%22%3E%3Ccircle%20cx%3D%22290%22%20cy%3D%22355%22%20r%3D%2224%22%2F%3E%3Cpath%20d%3D%22M275%20385l-22%20100h72l-16-100z%22%2F%3E%3Cpath%20d%3D%22M257%20420l-75%2045M315%20420l83%2040%22%20stroke%3D%22%2307111d%22%20stroke-width%3D%2222%22%20stroke-linecap%3D%22round%22%2F%3E%3Cellipse%20cx%3D%22285%22%20cy%3D%22505%22%20rx%3D%22140%22%20ry%3D%2218%22%20transform%3D%22rotate(-8%20285%20505)%22%2F%3E%3Ccircle%20cx%3D%22585%22%20cy%3D%22360%22%20r%3D%2222%22%2F%3E%3Cpath%20d%3D%22M570%20388l-12%2094h70l-24-94z%22%2F%3E%3Cpath%20d%3D%22M566%20420l-75%2036M610%20420l74%2048%22%20stroke%3D%22%2307111d%22%20stroke-width%3D%2220%22%20stroke-linecap%3D%22round%22%2F%3E%3Cellipse%20cx%3D%22585%22%20cy%3D%22505%22%20rx%3D%22132%22%20ry%3D%2217%22%20transform%3D%22rotate(7%20585%20505)%22%2F%3E%3C%2Fg%3E%3Ctext%20x%3D%2255%22%20y%3D%22635%22%20fill%3D%22%23fff%22%20opacity%3D%22.55%22%20font-family%3D%22Arial%22%20font-size%3D%2222%22%20letter-spacing%3D%225%22%3ELATE%20SURF%20%E2%80%A2%20THE%20CREW%3C%2Ftext%3E%3C%2Fsvg%3E","data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201000%20700%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22b%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%2316162f%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23060911%22%2F%3E%3C%2FlinearGradient%3E%3CradialGradient%20id%3D%22f%22%3E%3Cstop%20stop-color%3D%22%23fff2a5%22%2F%3E%3Cstop%20offset%3D%22.35%22%20stop-color%3D%22%23ff8b42%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23d83158%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221000%22%20height%3D%22700%22%20fill%3D%22url(%23b)%22%2F%3E%3Cg%20fill%3D%22%23dfe8ff%22%3E%3Ccircle%20cx%3D%2280%22%20cy%3D%2290%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22180%22%20cy%3D%22145%22%20r%3D%222%22%2F%3E%3Ccircle%20cx%3D%22330%22%20cy%3D%2275%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22490%22%20cy%3D%22120%22%20r%3D%222%22%2F%3E%3Ccircle%20cx%3D%22720%22%20cy%3D%2265%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22880%22%20cy%3D%22140%22%20r%3D%222%22%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%22M0%20500Q220%20430%20410%20490T1000%20450V700H0Z%22%20fill%3D%22%23090c13%22%2F%3E%3Ccircle%20cx%3D%22510%22%20cy%3D%22470%22%20r%3D%22210%22%20fill%3D%22url(%23f)%22%2F%3E%3Cpath%20d%3D%22M470%20550q30-120%2055-10%2030-130%2055%205-25%2060-55%2072-35-12-55-67%22%20fill%3D%22%23ff9f43%22%2F%3E%3Cg%20fill%3D%22%2305070d%22%3E%3Ccircle%20cx%3D%22310%22%20cy%3D%22400%22%20r%3D%2230%22%2F%3E%3Cpath%20d%3D%22M280%20440l-25%20150h115l-30-150z%22%2F%3E%3Ccircle%20cx%3D%22710%22%20cy%3D%22395%22%20r%3D%2228%22%2F%3E%3Cpath%20d%3D%22M682%20435l-30%20155h118l-32-155z%22%2F%3E%3Ccircle%20cx%3D%22145%22%20cy%3D%22440%22%20r%3D%2225%22%2F%3E%3Cpath%20d%3D%22M120%20475l-30%20125h105l-27-125z%22%2F%3E%3Ccircle%20cx%3D%22855%22%20cy%3D%22435%22%20r%3D%2226%22%2F%3E%3Cpath%20d%3D%22M830%20470l-25%20130h105l-30-130z%22%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%22M60%20250Q500%20190%20940%20250%22%20fill%3D%22none%22%20stroke%3D%22%234f355f%22%20stroke-width%3D%224%22%2F%3E%3Cg%20fill%3D%22%23ffca72%22%3E%3Ccircle%20cx%3D%22100%22%20cy%3D%22242%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22220%22%20cy%3D%22224%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22350%22%20cy%3D%22212%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22500%22%20cy%3D%22207%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22650%22%20cy%3D%22212%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22790%22%20cy%3D%22226%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22910%22%20cy%3D%22243%22%20r%3D%229%22%2F%3E%3C%2Fg%3E%3Ctext%20x%3D%2252%22%20y%3D%22650%22%20fill%3D%22%23fff%22%20opacity%3D%22.5%22%20font-family%3D%22Arial%22%20font-size%3D%2222%22%20letter-spacing%3D%225%22%3EWEEKEND%20WARRIORS%3C%2Ftext%3E%3C%2Fsvg%3E","data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201000%20700%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22g%22%3E%3Cstop%20stop-color%3D%22%23171e2c%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23080a10%22%2F%3E%3C%2FlinearGradient%3E%3ClinearGradient%20id%3D%22n%22%3E%3Cstop%20stop-color%3D%22%2325c9ff%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ff42b6%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221000%22%20height%3D%22700%22%20fill%3D%22url(%23g)%22%2F%3E%3Cpath%20d%3D%22M120%20130h760M120%20220h760M120%20310h760M120%20400h760M120%20490h760%22%20stroke%3D%22%23283245%22%20stroke-width%3D%225%22%2F%3E%3Cg%20stroke%3D%22%237b63ff%22%20stroke-width%3D%2212%22%3E%3Cpath%20d%3D%22M180%2090v500M820%2090v500%22%2F%3E%3C%2Fg%3E%3Cg%20transform%3D%22translate(500%20350)%22%20fill%3D%22%23080b12%22%3E%3Ccircle%20cy%3D%22-150%22%20r%3D%2244%22%2F%3E%3Cpath%20d%3D%22M-48-100L-90%2080h180L48-100Z%22%2F%3E%3Cpath%20d%3D%22M-55-70l-190%2045M55-70l190%2045%22%20stroke%3D%22%23080b12%22%20stroke-width%3D%2250%22%20stroke-linecap%3D%22round%22%2F%3E%3Cpath%20d%3D%22M-55%2060l-70%20190M55%2060l70%20190%22%20stroke%3D%22%23080b12%22%20stroke-width%3D%2250%22%20stroke-linecap%3D%22round%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22none%22%20stroke%3D%22url(%23n)%22%20stroke-width%3D%2222%22%3E%3Cpath%20d%3D%22M160%20310h190M650%20310h190%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22%23111827%22%3E%3Crect%20x%3D%22125%22%20y%3D%22250%22%20width%3D%2235%22%20height%3D%22120%22%20rx%3D%228%22%2F%3E%3Crect%20x%3D%22840%22%20y%3D%22250%22%20width%3D%2235%22%20height%3D%22120%22%20rx%3D%228%22%2F%3E%3C%2Fg%3E%3Ctext%20x%3D%2252%22%20y%3D%22650%22%20fill%3D%22%23fff%22%20opacity%3D%22.5%22%20font-family%3D%22Arial%22%20font-size%3D%2222%22%20letter-spacing%3D%225%22%3EGYM%20JUNKIES%20%E2%80%A2%20LEG%20DAY%3C%2Ftext%3E%3C%2Fsvg%3E","data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%20500%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22p%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23394c88%22%2F%3E%3Cstop%20offset%3D%22.55%22%20stop-color%3D%22%23d16e86%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23f0aa63%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221200%22%20height%3D%22500%22%20fill%3D%22url(%23p)%22%2F%3E%3Ccircle%20cx%3D%22860%22%20cy%3D%22190%22%20r%3D%2290%22%20fill%3D%22%23ffda99%22%20opacity%3D%22.88%22%2F%3E%3Cpath%20d%3D%22M0%20350Q190%20280%20370%20350T720%20345T1200%20300V500H0Z%22%20fill%3D%22%2317283a%22%2F%3E%3Cpath%20d%3D%22M0%20395Q270%20340%20530%20400T1200%20365%22%20fill%3D%22none%22%20stroke%3D%22%238be5ff%22%20stroke-opacity%3D%22.25%22%20stroke-width%3D%2214%22%2F%3E%3Cg%20fill%3D%22%230c1723%22%3E%3Ccircle%20cx%3D%22350%22%20cy%3D%22305%22%20r%3D%2222%22%2F%3E%3Cpath%20d%3D%22M330%20335l-18%2095h75l-23-95z%22%2F%3E%3Ccircle%20cx%3D%22480%22%20cy%3D%22315%22%20r%3D%2220%22%2F%3E%3Cpath%20d%3D%22M460%20342l-14%2088h70l-20-88z%22%2F%3E%3C%2Fg%3E%3C%2Fsvg%3E"];
+    return `${appHeader("Profile","Your photos and account")}
+      <div class="profile-hero"><div class="app-content" style="padding-top:0;padding-bottom:0"><div class="profile-head"><img class="profile-avatar" src="data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22a%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%2343c6f5%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23214a66%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22url(%23a)%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2239%22%20r%3D%2220%22%20fill%3D%22%23f3c9aa%22%2F%3E%3Cpath%20d%3D%22M18%20100q5-38%2032-38t32%2038%22%20fill%3D%22%23101725%22%2F%3E%3Cpath%20d%3D%22M29%2035q3-28%2023-26%2019%202%2020%2028-9-14-22-14-12%200-21%2012%22%20fill%3D%22%23111622%22%2F%3E%3C%2Fsvg%3E" alt="Michael Bruford"><div class="profile-copy"><h1>Michael Bruford</h1><div class="username">@michaelb</div><p class="bio">Usually the one taking the photo. Occasionally the reason it should not be uploaded.</p><div class="profile-stats"><div><strong>6</strong><span>Posts</span></div><div><strong>184</strong><span>Likes</span></div><div><strong>Aug 2026</strong><span>Joined</span></div></div></div><div class="profile-actions"><button class="btn btn-subtle" data-action="edit-profile">${icons.edit} Edit profile</button><button class="btn btn-icon" data-action="open-invite">${icons.share}</button></div></div></div></div><div class="app-content" style="padding-top:0"><div class="profile-grid-title"><h2>Uploaded photos</h2><span style="color:var(--muted);font-size:9px">Newest first</span></div><div class="photo-grid">${photos.map((p,i)=>`<button class="grid-tile" data-action="grid-photo"><img src="${p}" alt="Uploaded photo"><span class="grid-overlay">♥ ${[48,31,72,20,13,9][i]} &nbsp; ◯ ${[12,4,8,2,1,0][i]}</span></button>`).join('')}</div></div>`;
+  }
+
+  function notificationsPage() {
+    return `${appHeader("Activity","Likes, comments and account updates")}<div class="app-content simple-page"><div class="simple-heading"><div><h1>Activity</h1><p>What has happened since your last visit.</p></div><button class="btn btn-sm" data-action="mark-read">Mark all read</button></div><div class="notification-list">${notifications.map(n=>`<div class="notification ${n.unread?'unread':''}"><img class="avatar" src="${n.avatar}" alt=""><div class="notification-copy">${n.text}</div><span class="notification-time">${n.time}</span></div>`).join('')}</div></div>`;
+  }
+
+  function searchPage() {
+    return `${appHeader("Search","Find people and posts")}<div class="app-content simple-page"><div class="simple-heading"><div><h1>Search</h1><p>Search usernames, names, locations and captions.</p></div></div><div class="field"><label class="sr-only">Search</label><input class="input" style="min-height:52px" placeholder="Try ‘Brighton’, ‘Jess’ or ‘weekend’"></div><div style="height:18px"></div><div class="rail-card"><h3>People</h3><div class="people-list">${people.map(p=>`<div class="person-row"><img src="${p.avatar}"><div><strong>${p.name}</strong><span>@${p.user}</span></div><button class="btn btn-sm">View profile</button></div>`).join('')}</div></div></div>`;
+  }
+
+  function settingsPage() {
+    return `${appHeader("Settings","Profile, appearance and privacy")}<div class="app-content simple-page"><div class="simple-heading"><div><h1>Settings</h1><p>Control how your account and the platform behave.</p></div></div><div class="settings-layout"><nav class="settings-menu">${[['appearance','Appearance'],['profile','Profile'],['privacy','Privacy'],['account','Account']].map(([id,l])=>`<button class="settings-tab ${state.selectedSettings===id?'active':''}" data-settings-tab="${id}">${l}</button>`).join('')}</nav><section class="settings-panel">${settingsPanel()}</section></div></div>`;
+  }
+
+  function settingsPanel() {
+    if (state.selectedSettings === "appearance") return `<h2>Appearance</h2><p>The design system supports multiple restrained dark palettes without changing the layout.</p><div class="theme-grid">${[['ink','Ink','Neutral, editorial'],['slate','Slate','Cooler and cleaner'],['warm','Warm','Softer, more cinematic']].map(([id,n,d])=>`<button class="theme-card ${state.theme===id?'active':''}" data-theme-choice="${id}"><span class="theme-swatch ${id}"></span><strong>${n}</strong><span>${d}</span></button>`).join('')}</div>`;
+    if (state.selectedSettings === "profile") return `<h2>Profile</h2><p>Update the information shown alongside your posts.</p><div class="form-grid"><div class="form-row"><div class="field"><label>Display name</label><input class="input" value="Michael Bruford"></div><div class="field"><label>Username</label><input class="input" value="michaelb"></div></div><div class="field"><label>About you</label><textarea class="textarea">Usually the one taking the photo. Occasionally the reason it should not be uploaded.</textarea></div><div><button class="btn btn-primary" data-action="save-settings">Save profile</button></div></div>`;
+    if (state.selectedSettings === "privacy") return `<h2>Privacy</h2><p>Your email address is private. Your profile and uploads are visible to signed-in members.</p><div class="toggle-row"><div><strong>Remove image metadata</strong><span>Strip location and device data from uploads.</span></div><button class="switch on" data-action="toggle-switch"><i></i></button></div><div class="toggle-row"><div><strong>Allow profile search</strong><span>Let other members find you by name or username.</span></div><button class="switch on" data-action="toggle-switch"><i></i></button></div><div class="toggle-row"><div><strong>Activity notifications</strong><span>Notify you when someone likes or comments.</span></div><button class="switch on" data-action="toggle-switch"><i></i></button></div>`;
+    return `<h2>Account</h2><p>Manage account security and access.</p><div class="toggle-row"><div><strong>Email address</strong><span>michael.bruford@example.com</span></div><button class="btn btn-sm">Change</button></div><div class="toggle-row"><div><strong>Password</strong><span>Last changed recently</span></div><button class="btn btn-sm">Reset</button></div><div style="margin-top:22px"><button class="btn btn-danger" data-action="delete-account">Delete account</button></div>`;
+  }
+
+  function renderApp() {
+    let page = feedPage();
+    if (state.route === "profile") page = profilePage();
+    if (state.route === "notifications") page = notificationsPage();
+    if (state.route === "search") page = searchPage();
+    if (state.route === "settings") page = settingsPage();
+    document.title = `${state.route[0].toUpperCase()+state.route.slice(1)} — My Mate Nasty`;
+    return `<div class="app-shell">${sidebar()}<main class="app-main">${page}</main>${mobileTabs()}</div>`;
+  }
+
+  function render() {
+    document.documentElement.dataset.theme = state.theme;
+    if (!state.loggedIn && ["feed","profile","notifications","search","settings"].includes(state.route)) state.route="landing";
+    if (state.route === "landing") app.innerHTML = renderLanding();
+    else if (state.route === "login" || state.route === "signup") app.innerHTML = renderAuth(state.route);
+    else app.innerHTML = renderApp();
+    window.scrollTo(0,0);
+  }
+
+  function showToast(message) {
+    toast.textContent = message; toast.classList.add("show"); clearTimeout(window.__mmnToast); window.__mmnToast=setTimeout(()=>toast.classList.remove("show"),2600);
+  }
+
+  function navigate(route) {
+    state.route=route; history.replaceState(null,"",`#${route}`); render();
+  }
+
+  function openCreate() {
+    state.uploaded=[]; state.createComments=true;
+    overlayRoot.innerHTML = `<div class="overlay" data-action="close-overlay"><section class="modal" role="dialog" aria-modal="true" aria-labelledby="create-title" data-stop><header class="modal-header"><h2 id="create-title">Create a post</h2><button class="btn btn-icon btn-sm" data-action="close-overlay">${icons.close}</button></header><div class="modal-body"><div class="upload-drop" id="upload-drop"><div><div class="upload-icon">${icons.upload}</div><h3>Add up to 10 photos</h3><p>JPEG, PNG and WebP. Images will be resized and metadata removed in the live build.</p><button class="btn btn-primary" data-action="demo-select-images">Choose photos</button><input id="file-input" class="sr-only" type="file" accept="image/jpeg,image/png,image/webp" multiple></div></div><div id="upload-previews" class="upload-previews"></div><div class="create-fields"><div class="field"><label>Caption</label><textarea class="textarea" maxlength="1200" placeholder="What happened?"></textarea></div><div class="field"><label>Location <span style="color:var(--muted);font-weight:400">(optional)</span></label><input class="input" placeholder="Add a location"></div><div class="comments-toggle"><div><strong>Allow comments</strong><span>You can change this before posting.</span></div><button class="switch on" data-action="toggle-comments"><i></i></button></div></div><div class="modal-footer"><button class="btn" data-action="close-overlay">Cancel</button><button class="btn btn-primary" data-action="publish-demo">Publish post</button></div></div></section></div>`;
+    document.body.classList.add("no-scroll");
+  }
+
+  function renderUploadPreviews() {
+    const box=document.getElementById("upload-previews"); if(!box)return; box.innerHTML=state.uploaded.map((src,i)=>`<div class="upload-preview"><img src="${src}"><button data-action="remove-upload" data-index="${i}">×</button></div>`).join('');
+  }
+
+  function openComments(id) {
+    const post=state.posts.find(p=>p.id===id); if(!post)return;
+    overlayRoot.innerHTML=`<div class="drawer-overlay" data-action="close-overlay"><aside class="drawer" data-stop><header class="drawer-header"><h2>Comments</h2><button class="btn btn-icon btn-sm" data-action="close-overlay">${icons.close}</button></header><div class="comments-list">${post.comments.length?post.comments.map(c=>`<div class="comment"><img src="${c.avatar}"><div><div class="comment-body"><strong>${c.author}</strong>${c.body}</div><div class="comment-meta"><span>${c.time}</span><span>Like</span><span>Reply</span></div></div></div>`).join(''):`<div class="empty-state"><h3>No comments yet</h3><p>Be the first to say something sensible.</p></div>`}</div><form class="comment-compose" data-comment-post="${id}"><input class="input" name="comment" placeholder="Add a comment…" required><button class="btn btn-primary btn-sm">Post</button></form></aside></div>`;
+    document.body.classList.add("no-scroll");
+  }
+
+  function openInvite() {
+    overlayRoot.innerHTML=`<div class="overlay" data-action="close-overlay"><section class="modal" style="max-width:520px" data-stop><header class="modal-header"><h2>Invite a mate</h2><button class="btn btn-icon btn-sm" data-action="close-overlay">${icons.close}</button></header><div class="modal-body"><span class="eyebrow">Open registration</span><h2 style="font-size:34px;letter-spacing:-.05em;margin:17px 0 10px">Send the link.<br>Let them explain themselves.</h2><p style="color:var(--muted);font-size:11px;line-height:1.65">Anyone can create an account. Your personal link simply makes it easier to invite them and can track who joined from you later.</p><div class="invite-link"><code>https://mymatenasty.com/join?ref=michaelb</code><button class="btn btn-sm" data-action="copy-invite">Copy</button></div><div class="invite-options"><button class="invite-option" data-action="copy-invite">${icons.share}<strong>Copy link</strong><span>Paste it anywhere.</span></button><button class="invite-option" data-action="share-email">${icons.mail}<strong>Email</strong><span>Open your email app.</span></button></div></div></section></div>`;
+    document.body.classList.add("no-scroll");
+  }
+
+  function closeOverlay(){ overlayRoot.innerHTML=""; document.body.classList.remove("no-scroll"); }
+
+  document.addEventListener("click", e => {
+    const routeEl=e.target.closest("[data-route]"); if(routeEl){e.preventDefault(); navigate(routeEl.dataset.route); return;}
+    const actionEl=e.target.closest("[data-action]"); if(!actionEl)return;
+    if ((actionEl.classList.contains("overlay") || actionEl.classList.contains("drawer-overlay")) && e.target.closest("[data-stop]")) return;
+    const action=actionEl.dataset.action;
+    if(action==="demo-login"){state.loggedIn=true;navigate("feed");showToast("Preview mode opened");}
+    if(action==="logout"){state.loggedIn=false;navigate("landing");showToast("Signed out of preview mode");}
+    if(action==="open-create")openCreate();
+    if(action==="open-invite")openInvite();
+    if(action==="close-overlay")closeOverlay();
+    if(action==="like"){
+      const p=state.posts.find(x=>x.id===actionEl.dataset.id); if(p){p.liked=!p.liked;p.likes+=p.liked?1:-1;render();}
+    }
+    if(action==="comments")openComments(actionEl.dataset.id);
+    if(action==="toggle-comments"){state.createComments=!state.createComments;actionEl.classList.toggle("on",state.createComments);}
+    if(action==="demo-select-images"){
+      state.uploaded=["data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201000%20700%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22r%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%23553f91%22%2F%3E%3Cstop%20offset%3D%22.48%22%20stop-color%3D%22%23dd618c%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ffb05f%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221000%22%20height%3D%22700%22%20fill%3D%22url(%23r)%22%2F%3E%3Ccircle%20cx%3D%22500%22%20cy%3D%22250%22%20r%3D%22100%22%20fill%3D%22%23ffd999%22%20opacity%3D%22.8%22%2F%3E%3Cpath%20d%3D%22M0%20450h70v-160h80v160h70V250h90v200h80V330h120v120h60V210h110v240h90V300h80v150h150v250H0Z%22%20fill%3D%22%23161525%22%20opacity%3D%22.92%22%2F%3E%3Cg%20fill%3D%22%23070812%22%3E%3Ccircle%20cx%3D%22330%22%20cy%3D%22395%22%20r%3D%2225%22%2F%3E%3Cpath%20d%3D%22M300%20430l-30%20170h120l-30-170z%22%2F%3E%3Ccircle%20cx%3D%22500%22%20cy%3D%22380%22%20r%3D%2226%22%2F%3E%3Cpath%20d%3D%22M468%20420l-20%20180h120l-38-180z%22%2F%3E%3Ccircle%20cx%3D%22680%22%20cy%3D%22398%22%20r%3D%2224%22%2F%3E%3Cpath%20d%3D%22M650%20430l-22%20170h115l-33-170z%22%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%22M0%20600h1000v100H0z%22%20fill%3D%22%23080910%22%2F%3E%3Ctext%20x%3D%2252%22%20y%3D%22655%22%20fill%3D%22%23fff%22%20opacity%3D%22.52%22%20font-family%3D%22Arial%22%20font-size%3D%2222%22%20letter-spacing%3D%225%22%3EONE%20DRINK%20%E2%80%A2%20APPARENTLY%3C%2Ftext%3E%3C%2Fsvg%3E","data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201000%20700%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22b%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%2316162f%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23060911%22%2F%3E%3C%2FlinearGradient%3E%3CradialGradient%20id%3D%22f%22%3E%3Cstop%20stop-color%3D%22%23fff2a5%22%2F%3E%3Cstop%20offset%3D%22.35%22%20stop-color%3D%22%23ff8b42%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23d83158%22%20stop-opacity%3D%220%22%2F%3E%3C%2FradialGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221000%22%20height%3D%22700%22%20fill%3D%22url(%23b)%22%2F%3E%3Cg%20fill%3D%22%23dfe8ff%22%3E%3Ccircle%20cx%3D%2280%22%20cy%3D%2290%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22180%22%20cy%3D%22145%22%20r%3D%222%22%2F%3E%3Ccircle%20cx%3D%22330%22%20cy%3D%2275%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22490%22%20cy%3D%22120%22%20r%3D%222%22%2F%3E%3Ccircle%20cx%3D%22720%22%20cy%3D%2265%22%20r%3D%223%22%2F%3E%3Ccircle%20cx%3D%22880%22%20cy%3D%22140%22%20r%3D%222%22%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%22M0%20500Q220%20430%20410%20490T1000%20450V700H0Z%22%20fill%3D%22%23090c13%22%2F%3E%3Ccircle%20cx%3D%22510%22%20cy%3D%22470%22%20r%3D%22210%22%20fill%3D%22url(%23f)%22%2F%3E%3Cpath%20d%3D%22M470%20550q30-120%2055-10%2030-130%2055%205-25%2060-55%2072-35-12-55-67%22%20fill%3D%22%23ff9f43%22%2F%3E%3Cg%20fill%3D%22%2305070d%22%3E%3Ccircle%20cx%3D%22310%22%20cy%3D%22400%22%20r%3D%2230%22%2F%3E%3Cpath%20d%3D%22M280%20440l-25%20150h115l-30-150z%22%2F%3E%3Ccircle%20cx%3D%22710%22%20cy%3D%22395%22%20r%3D%2228%22%2F%3E%3Cpath%20d%3D%22M682%20435l-30%20155h118l-32-155z%22%2F%3E%3Ccircle%20cx%3D%22145%22%20cy%3D%22440%22%20r%3D%2225%22%2F%3E%3Cpath%20d%3D%22M120%20475l-30%20125h105l-27-125z%22%2F%3E%3Ccircle%20cx%3D%22855%22%20cy%3D%22435%22%20r%3D%2226%22%2F%3E%3Cpath%20d%3D%22M830%20470l-25%20130h105l-30-130z%22%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%22M60%20250Q500%20190%20940%20250%22%20fill%3D%22none%22%20stroke%3D%22%234f355f%22%20stroke-width%3D%224%22%2F%3E%3Cg%20fill%3D%22%23ffca72%22%3E%3Ccircle%20cx%3D%22100%22%20cy%3D%22242%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22220%22%20cy%3D%22224%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22350%22%20cy%3D%22212%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22500%22%20cy%3D%22207%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22650%22%20cy%3D%22212%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22790%22%20cy%3D%22226%22%20r%3D%229%22%2F%3E%3Ccircle%20cx%3D%22910%22%20cy%3D%22243%22%20r%3D%229%22%2F%3E%3C%2Fg%3E%3Ctext%20x%3D%2252%22%20y%3D%22650%22%20fill%3D%22%23fff%22%20opacity%3D%22.5%22%20font-family%3D%22Arial%22%20font-size%3D%2222%22%20letter-spacing%3D%225%22%3EWEEKEND%20WARRIORS%3C%2Ftext%3E%3C%2Fsvg%3E","data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201000%20700%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22sky%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%235bc4ef%22%2F%3E%3Cstop%20offset%3D%22.62%22%20stop-color%3D%22%23f6c783%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23ce765b%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%221000%22%20height%3D%22700%22%20fill%3D%22url(%23sky)%22%2F%3E%3Cpath%20d%3D%22M0%20390L220%20170l200%20220%20180-155%20180%20155%20220-190v500H0Z%22%20fill%3D%22%23263b4d%22%20opacity%3D%22.65%22%2F%3E%3Cpath%20d%3D%22M0%20465L190%20325l170%20140%20180-120%20160%20120%20300-180v415H0Z%22%20fill%3D%22%23172934%22%2F%3E%3Cpath%20d%3D%22M360%20700l100-310h80l100%20310%22%20fill%3D%22%2324262c%22%2F%3E%3Cpath%20d%3D%22M466%20660l28-85h12l28%2085%22%20fill%3D%22%23f8eec2%22%20opacity%3D%22.65%22%2F%3E%3Cg%20transform%3D%22translate(260%20440)%22%3E%3Crect%20width%3D%22280%22%20height%3D%22125%22%20rx%3D%2225%22%20fill%3D%22%23e15b5e%22%2F%3E%3Crect%20x%3D%2235%22%20y%3D%2222%22%20width%3D%2275%22%20height%3D%2250%22%20rx%3D%228%22%20fill%3D%22%23bce8f4%22%2F%3E%3Crect%20x%3D%22126%22%20y%3D%2222%22%20width%3D%2275%22%20height%3D%2250%22%20rx%3D%228%22%20fill%3D%22%23bce8f4%22%2F%3E%3Crect%20x%3D%22215%22%20y%3D%2252%22%20width%3D%2245%22%20height%3D%2225%22%20rx%3D%226%22%20fill%3D%22%23bce8f4%22%2F%3E%3Ccircle%20cx%3D%2268%22%20cy%3D%22128%22%20r%3D%2228%22%20fill%3D%22%23111923%22%2F%3E%3Ccircle%20cx%3D%22220%22%20cy%3D%22128%22%20r%3D%2228%22%20fill%3D%22%23111923%22%2F%3E%3Ccircle%20cx%3D%2268%22%20cy%3D%22128%22%20r%3D%2212%22%20fill%3D%22%2375818a%22%2F%3E%3Ccircle%20cx%3D%22220%22%20cy%3D%22128%22%20r%3D%2212%22%20fill%3D%22%2375818a%22%2F%3E%3C%2Fg%3E%3Ctext%20x%3D%2252%22%20y%3D%22650%22%20fill%3D%22%23fff%22%20opacity%3D%22.58%22%20font-family%3D%22Arial%22%20font-size%3D%2222%22%20letter-spacing%3D%225%22%3ECORNWALL%20%E2%80%A2%20NO%20PLAN%20NEEDED%3C%2Ftext%3E%3C%2Fsvg%3E"];renderUploadPreviews();showToast("Three demo photos selected");
+    }
+    if(action==="remove-upload"){state.uploaded.splice(Number(actionEl.dataset.index),1);renderUploadPreviews();}
+    if(action==="publish-demo"){
+      if(!state.uploaded.length){showToast("Choose at least one photo first");return;}
+      state.posts.unshift({id:`p${Date.now()}`,author:"Michael Bruford",username:"michaelb",avatar:"data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22a%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%2343c6f5%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23214a66%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22url(%23a)%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2239%22%20r%3D%2220%22%20fill%3D%22%23f3c9aa%22%2F%3E%3Cpath%20d%3D%22M18%20100q5-38%2032-38t32%2038%22%20fill%3D%22%23101725%22%2F%3E%3Cpath%20d%3D%22M29%2035q3-28%2023-26%2019%202%2020%2028-9-14-22-14-12%200-21%2012%22%20fill%3D%22%23111622%22%2F%3E%3C%2Fsvg%3E",time:"Just now",location:"",caption:"New post preview — ready for the real upload system.",images:[...state.uploaded],likes:0,liked:false,commentsEnabled:state.createComments,comments:[]});closeOverlay();navigate("feed");showToast("Demo post published");
+    }
+    if(action==="copy-invite"){navigator.clipboard?.writeText("https://mymatenasty.com/join?ref=michaelb");showToast("Invite link copied");}
+    if(action==="share-email"){showToast("Email sharing will open in the live build");}
+    if(action==="mark-read"){document.querySelectorAll('.notification.unread').forEach(x=>x.classList.remove('unread'));showToast("All activity marked as read");}
+    if(action==="save-settings")showToast("Profile changes saved in preview mode");
+    if(action==="toggle-switch")actionEl.classList.toggle("on");
+    if(action==="delete-account")showToast("Account deletion requires a confirmation step");
+    if(action==="edit-profile"){state.selectedSettings="profile";navigate("settings");}
+    if(action==="grid-photo")showToast("Photo detail view will open here");
+  });
+
+  document.addEventListener("click", e=>{ if(e.target.matches('[data-stop]')) e.stopPropagation(); });
+
+  document.addEventListener("submit", e=>{
+    if(e.target.id==="auth-form"){
+      e.preventDefault(); const wasSignup = state.route === "signup"; state.loggedIn=true; navigate("feed"); showToast(wasSignup?"Account created in preview mode":"Signed in to preview mode");
+    }
+    if(e.target.matches("[data-comment-post]")){
+      e.preventDefault(); const id=e.target.dataset.commentPost; const input=e.target.elements.comment; const p=state.posts.find(x=>x.id===id); if(p&&input.value.trim()){p.comments.push({author:"Michael Bruford",avatar:"data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Cdefs%3E%3ClinearGradient%20id%3D%22a%22%20y2%3D%221%22%3E%3Cstop%20stop-color%3D%22%2343c6f5%22%2F%3E%3Cstop%20offset%3D%221%22%20stop-color%3D%22%23214a66%22%2F%3E%3C%2FlinearGradient%3E%3C%2Fdefs%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20fill%3D%22url(%23a)%22%2F%3E%3Ccircle%20cx%3D%2250%22%20cy%3D%2239%22%20r%3D%2220%22%20fill%3D%22%23f3c9aa%22%2F%3E%3Cpath%20d%3D%22M18%20100q5-38%2032-38t32%2038%22%20fill%3D%22%23101725%22%2F%3E%3Cpath%20d%3D%22M29%2035q3-28%2023-26%2019%202%2020%2028-9-14-22-14-12%200-21%2012%22%20fill%3D%22%23111622%22%2F%3E%3C%2Fsvg%3E",body:input.value.trim(),time:"Now"});openComments(id);showToast("Comment added");}
+    }
+  });
+
+  document.addEventListener("click", e=>{
+    const tab=e.target.closest("[data-settings-tab]"); if(tab){state.selectedSettings=tab.dataset.settingsTab;render();}
+    const theme=e.target.closest("[data-theme-choice]"); if(theme){state.theme=theme.dataset.themeChoice;try { localStorage.setItem("mmn-theme",state.theme); } catch (_) {}render();showToast(`${theme.querySelector('strong').textContent} theme selected`);}
+  });
+
+  const hash=location.hash.replace('#','');
+  if(["login","signup"].includes(hash)) state.route=hash;
+  render();
+})();
+</script>
+</body>
+</html>
