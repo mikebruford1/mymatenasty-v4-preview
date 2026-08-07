@@ -1,33 +1,33 @@
-# My Mate Nasty V4 — Connected Preview
+# My Mate Nasty — Simple Live Build
 
-This package converts the approved V4 interface into a real Supabase-backed preview.
+This is the simplified launch version.
 
-## Before uploading
+## What it does
+- Public minimal homepage
+- Email/password signup and login
+- Email verification via Supabase
+- One shared member gallery
+- Up to 10 images per upload
+- Optional caption
+- Full-screen photo viewer
+- Users can delete their own uploads
+- Admin can delete any upload
+- Automatic browser resize/re-encode before upload
 
-1. In Supabase SQL Editor, run:
-   `supabase/v4-security-and-signup-patch.sql`
-2. Open `config.js` in Notepad.
-3. Replace only:
-   - `YOUR_SUPABASE_PROJECT_URL`
-   - `YOUR_SUPABASE_PUBLISHABLE_KEY`
-4. Never use a secret or service-role key.
+## Important
+This package intentionally DOES NOT contain `config.js`.
+
+When updating the existing `mymatenasty-v4-preview` GitHub repository, leave its current `config.js` untouched. It already contains the browser-safe Supabase Project URL and publishable key that were configured earlier.
+
+No new SQL migration is required; this build uses the existing V4 Supabase schema and storage policies.
 
 ## Deploy
+Replace/upload:
+- `index.html`
+- `styles.css`
+- `app.js`
 
-Upload the contents of this folder to the existing `mymatenasty-v4-preview` GitHub repository, replacing `index.html` and adding the other files/folders.
+Keep:
+- `config.js`
 
-Vercel settings remain:
-- Framework Preset: Other
-- Build Command: blank
-- Output Directory: blank
-
-## First test
-
-1. Create a new test account using a new email address.
-2. Verify the email.
-3. Sign in.
-4. Update the profile and upload an avatar.
-5. Create a post with 1–3 photos.
-6. Test a like and comment from a second test account.
-
-Do not connect the main mymatenasty.com domain until this preview has passed testing.
+Vercel will redeploy automatically from GitHub.
